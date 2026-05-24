@@ -1,0 +1,27 @@
+# Internal project documents — do not deploy
+*.docx
+*.pdf
+AeroCy_MoodBoard.html
+AeroCy_Logos.html
+AeroCy_Website_Workflow.md
+CRM_SETUP.md
+*.md
+!README.md
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Vercel local
+.vercel
+.env*.local
+
+# Logs
+*.log

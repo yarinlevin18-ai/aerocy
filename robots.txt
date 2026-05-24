@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard.html
+Disallow: /crm-config.js
+
+# Block common bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+Sitemap: https://aerocy.io/sitemap.xml
