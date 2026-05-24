@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AeroCy — Mood Board & Figma Starter</title>
+<style>
+  :root {
+    --bg: #07090d;
+    --bg-2: #0d1117;
+    --panel: #11161f;
+    --panel-2: #161c27;
+    --border: #1f2937;
+    --text: #e6edf3;
+    --muted: #9ba8b8;
+    --cyan: #00e0ff;
+    --cyan-dim: #0892a5;
+    --red: #ff3b4a;
+    --navy: #0b1d36;
+    --slate: #5b6677;
+    --accent-grad: linear-gradient(135deg, #00e0ff 0%, #0892a5 100%);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  body {
+    background:
+      radial-gradient(ellipse at 80% -10%, rgba(0,224,255,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at -10% 50%, rgba(255,59,74,0.05) 0%, transparent 50%),
+      var(--bg);
+    min-height: 100vh;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 64px 32px; }
+
+  /* Header */
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1.05;
+    font-weight: 800;
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+  }
+  h1 .red { color: var(--red); }
+  h1 .cyan { color: var(--cyan); }
+  .lead { font-size: 18px; color: var(--muted); max-width: 720px; }
+
+  /* Section */
+  section { margin-top: 96px; }
+  h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  h2 .num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--cyan);
+    font-size: 18px;
+    display: block;
+    margin-bottom: 8px;
+    letter-spacing: 0.15em;
+  }
+  h3 { font-size: 20px; font-weight: 600; margin: 0 0 12px; }
+  .section-desc { color: var(--muted); max-width: 720px; margin-bottom: 40px; }
+
+  /* Direction summary */
+  .direction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .direction-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .direction-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent-grad);
+  }
+  .direction-card .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .direction-card .value { font-size: 16px; font-weight: 600; }
+
+  /* Reference cards */
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 24px;
+  }
+  .ref-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .ref-card:hover { transform: translateY(-4px); border-color: var(--cyan-dim); }
+  .ref-mock {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .ref-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .ref-name {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .ref-name h3 { margin: 0; }
+  .ref-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    background: rgba(0,224,255,0.1);
+    color: var(--cyan);
+    border: 1px solid rgba(0,224,255,0.2);
+  }
+  .ref-tag.competitor { background: rgba(255,59,74,0.1); color: var(--red); border-color: rgba(255,59,74,0.2); }
+  .ref-tag.parent { background: rgba(91,102,119,0.2); color: var(--muted); border-color: var(--border); }
+  .ref-url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    word-break: break-all;
+  }
+  .ref-url a { color: var(--muted); text-decoration: none; border-bottom: 1px dashed var(--border); }
+  .ref-url a:hover { color: var(--cyan); border-color: var(--cyan); }
+  .steal-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin: 8px 0;
+  }
+  .steal-list { margin: 0; padding-left: 18px; color: var(--text); font-size: 14px; }
+  .steal-list li { margin-bottom: 6px; }
+  .skip-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin: 16px 0 8px;
+  }
+
+  /* Mock visuals */
+  .mock-cyviation {
+    background: linear-gradient(180deg, #0a1929 0%, #0d1117 100%);
+    color: white;
+    text-align: center;
+    width: 100%;
+  }
+  .mock-cyviation .h { font-weight: 800; font-size: 22px; }
+  .mock-cyviation .h span { display: block; }
+  .mock-cyviation .s { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .mock-wope {
+    width: 100%; padding: 24px;
+    background: linear-gradient(180deg, #f5f1eb 0%, #e8dfd1 100%);
+    color: #1a1a1a; text-align: center;
+  }
+  .mock-wope .big { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; }
+  .mock-wope .sm { font-size: 10px; color: #666; margin-top: 8px; font-family: monospace; }
+  .mock-cyray {
+    width: 100%; padding: 32px; background: #003a5c; color: white; text-align: center;
+  }
+  .mock-cyray .rotating {
+    font-size: 20px; font-weight: 700;
+  }
+  .mock-cyray .rotating .word { color: #ffcc00; font-style: italic; }
+  .mock-reventador {
+    width: 100%; height: 100%; position: relative;
+    background: linear-gradient(135deg, #1a2030 0%, #0c1118 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mock-reventador .scroll-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--cyan); margin: 4px auto;
+  }
+  .mock-reventador .scroll-line {
+    width: 2px; height: 60px; background: linear-gradient(180deg, var(--cyan) 0%, transparent 100%);
+    margin: 0 auto;
+  }
+  .mock-reventador .text { text-align: center; color: var(--cyan); font-family: monospace; font-size: 10px; letter-spacing: 0.2em; margin-top: 8px;}
+  .mock-wiz {
+    width: 100%; padding: 24px;
+    background: #0c1118;
+    color: white; text-align: center;
+  }
+  .mock-wiz .big { font-size: 26px; font-weight: 800; }
+  .mock-wiz .pills { display: flex; gap: 6px; justify-content: center; margin-top: 12px; }
+  .mock-wiz .pill { font-size: 10px; padding: 3px 8px; border-radius: 12px; font-family: monospace; }
+  .mock-wiz .pill.g { background: rgba(0,255,128,0.15); color: #00ff80; }
+  .mock-wiz .pill.r { background: rgba(255,59,74,0.15); color: var(--red); }
+  .mock-wiz .pill.b { background: rgba(0,170,255,0.15); color: #00aaff; }
+
+  /* Palette */
+  .palette {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .swatch {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .swatch .chip { height: 120px; }
+  .swatch .meta { padding: 16px; }
+  .swatch .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .swatch .name { font-weight: 600; font-size: 16px; margin: 4px 0; }
+  .swatch .hex { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--cyan); }
+
+  /* Typography */
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .type-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+  }
+  .type-card .sample { font-size: 48px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1; }
+  .type-card.mono .sample { font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 400; }
+  .type-card .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--cyan);
+    text-transform: uppercase;
+  }
+  .type-card .desc { color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+  /* Tool stack */
+  .tool-group { margin-bottom: 32px; }
+  .tool-group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .tool {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    transition: border-color 0.2s;
+    position: relative;
+  }
+  .tool:hover { border-color: var(--cyan-dim); }
+  .tool.star::after {
+    content: '★';
+    position: absolute;
+    top: 12px; right: 12px;
+    color: var(--cyan);
+    font-size: 14px;
+  }
+  .tool .name {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+  .tool .name a { color: var(--text); text-decoration: none; border-bottom: 1px dashed var(--border); }
+  .tool .name a:hover { color: var(--cyan); border-color: var(--cyan); }
+  .tool .desc { color: var(--muted); font-size: 13px; line-height: 1.4; }
+
+  /* Stack recommendation */
+  .stack-rec {
+    background: var(--panel);
+    border: 1px solid var(--cyan-dim);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 32px 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .stack-rec .arrow {
+    color: var(--cyan);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+  }
+  .stack-rec .step {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    border-radius: 8px;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .stack-rec .step .label-mini {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .stack-rec .step .tool-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--cyan);
+    margin-top: 4px;
+  }
+
+  /* Figma steps */
+  .figma-steps { display: grid; gap: 16px; }
+  .step {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .step .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--cyan);
+    line-height: 1;
+  }
+  .step h3 { margin: 0 0 8px; }
+  .step p { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
+  .kbd {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    color: var(--cyan);
+    margin: 0 2px;
+  }
+  .step ul { margin: 8px 0 0; padding-left: 20px; color: var(--muted); font-size: 14px; }
+  .step ul li { margin-bottom: 4px; }
+
+  /* Shortcuts */
+  .shortcuts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .shortcut {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .shortcut .name { font-size: 13px; color: var(--muted); }
+
+  /* CTA */
+  .next {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .next::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at top right, rgba(0,224,255,0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .next ol { padding-left: 20px; font-size: 16px; }
+  .next ol li { margin-bottom: 12px; }
+  .next a { color: var(--cyan); }
+
+  .note {
+    border-left: 3px solid var(--cyan);
+    background: rgba(0,224,255,0.05);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .note strong { color: var(--cyan); }
+
+  footer {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  a { color: var(--cyan); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="eyebrow">AeroCy · Landing Page Design Brief</div>
+  <h1>Bridge <span class="red">flight safety</span> and <span class="cyan">digital security</span>.</h1>
+  <p class="lead">A single source of truth for the landing-page mood board, design direction, and your first Figma session. Re-open this any time you sit down to design.</p>
+
+  <div class="note">
+    <strong>Honesty note:</strong> Observations below come from sites I actually inspected (cyviation.aero, wope.com, cyray.io, reventador.global, wiz.io). Honeywell and IATA returned empty / blocked content — open those yourself for additional reference.
+  </div>
+
+  <!-- Locked-in direction -->
+  <section>
+    <h2><span class="num">01 · Direction</span>Locked-in design decisions</h2>
+    <p class="section-desc">What we agreed before opening Figma.</p>
+    <div class="direction-grid">
+      <div class="direction-card">
+        <div class="label">Hero mechanic</div>
+        <div class="value">Cinematic scroll — full-bleed scene, headline assembles as you scroll</div>
+      </div>
+      <div class="direction-card">
+        <div class="label">Services page</div>
+        <div class="value">Interactive hub — clickable tiles reveal panel content</div>
+      </div>
+      <div class="direction-card">
+        <div class="label">Motion budget</div>
+        <div class="value">3 moments only: Hero · Threat Dashboard counters · Vendor Shield</div>
+      </div>
+      <div class="direction-card">
+        <div class="label">Scope (now)</div>
+        <div class="value">Home / landing page only</div>
+      </div>
+      <div class="direction-card">
+        <div class="label">Aesthetic</div>
+        <div class="value">Diagonal split — Red Threat / Blue Resilience · IT-OT fusion imagery</div>
+      </div>
+      <div class="direction-card">
+        <div class="label">Tone of voice</div>
+        <div class="value">Authoritative, tender-ready, aviation metaphors welcome</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- References -->
+  <section>
+    <h2><span class="num">02 · Inspiration</span>Reference sites — what to steal, what to skip</h2>
+    <p class="section-desc">Five sites I actually opened. Each card shows the structural pattern worth borrowing. Open the live links in another tab while you design.</p>
+
+    <div class="ref-grid">
+
+      <!-- Cyviation -->
+      <div class="ref-card">
+        <div class="ref-mock mock-cyviation">
+          <div>
+            <div class="h"><span>Always on.</span><span>Always compliant.</span></div>
+            <div class="s">— two-line hero, no spectacle —</div>
+          </div>
+        </div>
+        <div class="ref-body">
+          <div class="ref-name">
+            <h3>Cyviation</h3>
+            <span class="ref-tag competitor">Competitor</span>
+          </div>
+          <div class="ref-url"><a href="https://cyviation.aero/" target="_blank">cyviation.aero</a></div>
+          <div class="steal-label">→ Steal</div>
+          <ul class="steal-list">
+            <li>Brutally short hero (2 lines, no fluff)</li>
+            <li>4 label-style benefits, no descriptions</li>
+            <li>PLATFORM links to a sub-brand domain (same as AeroCy → CyRay)</li>
+          </ul>
+          <div class="skip-label">✕ Skip</div>
+          <ul class="steal-list">
+            <li>~190-country dropdown — way too much form friction</li>
+            <li>Generic stock-photo feel of news cards</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Wope -->
+      <div class="ref-card">
+        <div class="ref-mock mock-wope">
+          <div>
+            <div class="big">Outrank Everyone.<br/>Starting Now.</div>
+            <div class="sm">— oversized closing typography —</div>
+          </div>
+        </div>
+        <div class="ref-body">
+          <div class="ref-name">
+            <h3>Wope</h3>
+            <span class="ref-tag">Godly pick</span>
+          </div>
+          <div class="ref-url"><a href="https://wope.com/" target="_blank">wope.com</a></div>
+          <div class="steal-label">→ Steal</div>
+          <ul class="steal-list">
+            <li>Closing CTA as a poster-sized typographic moment</li>
+            <li>Layered animated product cards (6 variants of one card stack)</li>
+            <li>Hero embeds an inline product video preview</li>
+            <li>"GRID" word in footer — oversized type as decoration</li>
+          </ul>
+          <div class="skip-label">✕ Skip</div>
+          <ul class="steal-list">
+            <li>Light/warm palette — wrong tone for AeroCy</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Cyray -->
+      <div class="ref-card">
+        <div class="ref-mock mock-cyray">
+          <div>
+            <div class="rotating">Your SIEM is about to become <span class="word">SMARTER</span></div>
+            <div class="sm" style="margin-top:12px;font-size:10px;color:#88a;">— rotating word every 3s —</div>
+          </div>
+        </div>
+        <div class="ref-body">
+          <div class="ref-name">
+            <h3>CyRay (parent)</h3>
+            <span class="ref-tag parent">Heritage</span>
+          </div>
+          <div class="ref-url"><a href="https://cyray.io/" target="_blank">cyray.io</a></div>
+          <div class="steal-label">→ Steal</div>
+          <ul class="steal-list">
+            <li>Massive client-logo wall (incl. Israeli MoFA, Teva)</li>
+            <li>Integration logo grid as credibility (Cisco, Microsoft, IBM, Fortinet…)</li>
+            <li>Photo-anchored testimonial carousel</li>
+            <li>Visual DNA cue: keep "Cy" letterform reference in AeroCy logo</li>
+          </ul>
+          <div class="skip-label">✕ Skip</div>
+          <ul class="steal-list">
+            <li>WordPress-templated feel — AeroCy must clearly out-design the parent</li>
+            <li>Rotating hero claims (already decided cinematic scroll)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Reventador -->
+      <div class="ref-card">
+        <div class="ref-mock mock-reventador">
+          <div>
+            <div class="scroll-line"></div>
+            <div class="scroll-dot"></div>
+            <div class="text">SCROLL</div>
+          </div>
+        </div>
+        <div class="ref-body">
+          <div class="ref-name">
+            <h3>Reventador</h3>
+            <span class="ref-tag">Motion / Hub</span>
+          </div>
+          <div class="ref-url"><a href="https://www.reventador.global/" target="_blank">reventador.global</a></div>
+          <div class="steal-label">→ Steal (the whole playbook)</div>
+          <ul class="steal-list">
+            <li><strong>Aviation metaphors as copy</strong> — "co-pilot", "flight path", "Clearance for takeoff" (they're a sustainability company)</li>
+            <li>Scroll-triggered alternating image+headline pairs</li>
+            <li>Interactive hub with clickable module tiles — your Services page</li>
+            <li>Big numbered process: 01 → 02 → 03 → 04</li>
+            <li>Mixed-unit stat blocks (100+, 25+ years, F1, Top 3%)</li>
+            <li>Built on <strong>Webflow</strong> — easier path from Figma than custom code</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Wiz -->
+      <div class="ref-card">
+        <div class="ref-mock mock-wiz">
+          <div>
+            <div class="big">Protect Everything<br/>You Build &amp; Run</div>
+            <div class="pills">
+              <span class="pill g">●  CODE</span>
+              <span class="pill r">●  CLOUD</span>
+              <span class="pill b">●  DEFEND</span>
+            </div>
+          </div>
+        </div>
+        <div class="ref-body">
+          <div class="ref-name">
+            <h3>Wiz</h3>
+            <span class="ref-tag">B2B cyber gold</span>
+          </div>
+          <div class="ref-url"><a href="https://www.wiz.io/" target="_blank">wiz.io</a></div>
+          <div class="steal-label">→ Steal</div>
+          <ul class="steal-list">
+            <li>Color-coded agent system (Green/Red/Blue) — perfect for AeroCy's Red Threat / Blue Resilience split</li>
+            <li>Logo wall of recognizable brands as instant credibility (Morgan Stanley, BMW, Salesforce…)</li>
+            <li>Animated "Anewdevelopmentreality" — words crashed together, oversized type</li>
+            <li>Video customer testimonials (still + logo + role)</li>
+            <li>Big positioning line floating in section: "AI alone doesn't make security faster. Context does."</li>
+          </ul>
+          <div class="skip-label">✕ Skip</div>
+          <ul class="steal-list">
+            <li>Their lead form is in the hero — too aggressive for aviation buyers</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Browse yourself card -->
+      <div class="ref-card" style="background:var(--panel-2); border-style:dashed;">
+        <div class="ref-mock" style="background:linear-gradient(180deg,#1a1f2c 0%,#0d1117 100%);">
+          <div style="text-align:center;">
+            <div style="font-family:monospace;font-size:11px;color:var(--cyan);letter-spacing:0.2em;">YOUR HOMEWORK</div>
+            <div style="font-size:28px;font-weight:800;margin-top:8px;">Browse these →</div>
+          </div>
+        </div>
+        <div class="ref-body">
+          <div class="ref-name">
+            <h3>Open these yourself</h3>
+            <span class="ref-tag">Self-research</span>
+          </div>
+          <div class="ref-url" style="margin-bottom:8px;">I couldn't fetch these in-session — please scan them on your own time.</div>
+          <ul class="steal-list">
+            <li><a href="https://darktrace.com" target="_blank">darktrace.com</a> — premium cyber motion design</li>
+            <li><a href="https://www.honeywell.com/us/en/industries/aerospace-and-defense" target="_blank">honeywell.com/aerospace</a> — OEM aviation big-brand feel</li>
+            <li><a href="https://www.iata.org/en/services/consulting/security/" target="_blank">iata.org/security</a> — tender-ready regulator tone</li>
+            <li><a href="https://www.icao.int/aviationsecurity/Pages/Cybersecurity-and-Resilience.aspx" target="_blank">icao.int</a> — UN-level diagrams</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Palette -->
+  <section>
+    <h2><span class="num">03 · Palette</span>Color starting point (placeholder values)</h2>
+    <p class="section-desc">The PRD calls for Deep Navy, Slate, Electric Cyan, Alert Red — exact HEX values are still open. These are <strong>starting placeholders</strong> we'll use as CSS variables in the build.</p>
+
+    <div class="palette">
+      <div class="swatch">
+        <div class="chip" style="background:#0b1d36;"></div>
+        <div class="meta">
+          <div class="role">Primary</div>
+          <div class="name">Deep Navy</div>
+          <div class="hex">#0B1D36</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#5b6677;"></div>
+        <div class="meta">
+          <div class="role">Primary</div>
+          <div class="name">Slate</div>
+          <div class="hex">#5B6677</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#00e0ff;"></div>
+        <div class="meta">
+          <div class="role">Accent</div>
+          <div class="name">Electric Cyan</div>
+          <div class="hex">#00E0FF</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#ff3b4a;"></div>
+        <div class="meta">
+          <div class="role">Warning</div>
+          <div class="name">Alert Red</div>
+          <div class="hex">#FF3B4A</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#07090d;"></div>
+        <div class="meta">
+          <div class="role">Surface</div>
+          <div class="name">Black</div>
+          <div class="hex">#07090D</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#e6edf3;"></div>
+        <div class="meta">
+          <div class="role">Text</div>
+          <div class="name">Off White</div>
+          <div class="hex">#E6EDF3</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typography -->
+  <section>
+    <h2><span class="num">04 · Typography</span>Type starting point</h2>
+    <p class="section-desc">PRD spec: bold sans-serif for headlines, monospace/modern serif for body. Free Google Fonts that match: <strong>Space Grotesk</strong> (heading), <strong>JetBrains Mono</strong> (body/data labels), <strong>Inter</strong> (long-form body if mono feels heavy).</p>
+
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="sample">Aa Bb 01</div>
+        <div class="label">Heading · Space Grotesk Bold</div>
+        <div class="desc">For hero headlines, section titles, stat numbers. Tight letter-spacing.</div>
+      </div>
+      <div class="type-card mono">
+        <div class="sample">{ cyber }</div>
+        <div class="label">UI / Labels · JetBrains Mono</div>
+        <div class="desc">For eyebrows, data labels, code-like callouts, footer technical feel.</div>
+      </div>
+      <div class="type-card">
+        <div class="sample" style="font-family:'Inter',sans-serif;font-weight:400;font-size:32px;">Aviation resilient.</div>
+        <div class="label">Body · Inter Regular</div>
+        <div class="desc">For paragraphs, descriptions, captions. Highly readable.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tool stack -->
+  <section>
+    <h2><span class="num">05 · Stack</span>One tool — built right here with Claude</h2>
+    <p class="section-desc">No Figma, no Framer, no Webflow. You and me in this chat. I write the code, the files appear in your AeroCy folder, you preview by double-clicking the HTML. Free to build. ~$12/year for the aerocy.io domain when we deploy.</p>
+
+    <div class="stack-rec">
+      <div class="step" style="display:block;">
+        <div class="label-mini">Where the code lives</div>
+        <div class="tool-name">Claude (this chat)</div>
+      </div>
+      <span class="arrow">→</span>
+      <div class="step" style="display:block;">
+        <div class="label-mini">Where the files go</div>
+        <div class="tool-name">Your AeroCy folder</div>
+      </div>
+      <span class="arrow">→</span>
+      <div class="step" style="display:block;">
+        <div class="label-mini">How you preview</div>
+        <div class="tool-name">Double-click HTML</div>
+      </div>
+      <span class="arrow">→</span>
+      <div class="step" style="display:block;">
+        <div class="label-mini">When ready</div>
+        <div class="tool-name">Vercel (free hosting)</div>
+      </div>
+      <div style="flex-basis:100%;color:var(--muted);font-size:13px;margin-top:4px;">
+        <strong style="color:var(--cyan);">Total cost to launch:</strong> $0 to build &amp; iterate · ~$12/year for the aerocy.io domain · $0 for hosting (Vercel free tier handles AeroCy's expected traffic easily).
+      </div>
+    </div>
+
+    <!-- Inspiration -->
+    <div class="tool-group">
+      <div class="tool-group-label">Inspiration · keep collecting references</div>
+      <div class="tool-grid">
+        <div class="tool star"><div class="name"><a href="https://godly.website" target="_blank">godly.website</a></div><div class="desc">The curated gallery wope.com came from</div></div>
+        <div class="tool star"><div class="name"><a href="https://www.awwwards.com" target="_blank">awwwards.com</a></div><div class="desc">Filter by "cybersecurity" and "B2B"</div></div>
+        <div class="tool"><div class="name"><a href="https://land-book.com" target="_blank">land-book.com</a></div><div class="desc">Landing pages only, well-categorized</div></div>
+        <div class="tool"><div class="name"><a href="https://www.lapa.ninja" target="_blank">lapa.ninja</a></div><div class="desc">Landing pages with tags</div></div>
+      </div>
+    </div>
+
+    <!-- Assets -->
+    <div class="tool-group">
+      <div class="tool-group-label">Free assets · drop these into your AeroCy folder, I'll wire them in</div>
+      <div class="tool-grid">
+        <div class="tool"><div class="name"><a href="https://unsplash.com" target="_blank">Unsplash</a></div><div class="desc">Free photos. Search "aviation cockpit", "ATC tower", "turbine"</div></div>
+        <div class="tool"><div class="name"><a href="https://www.pexels.com" target="_blank">Pexels</a></div><div class="desc">Free photos + video</div></div>
+        <div class="tool"><div class="name"><a href="https://heroicons.com" target="_blank">Heroicons</a></div><div class="desc">Clean modern SVG icons (copy &amp; paste)</div></div>
+        <div class="tool"><div class="name"><a href="https://lottiefiles.com" target="_blank">LottieFiles</a></div><div class="desc">Pre-made animations if we want to add one</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How we'll work -->
+  <section>
+    <h2><span class="num">06 · Workflow</span>How we'll build this together</h2>
+    <p class="section-desc">No design tool to learn. No code to write. You drive the design with words, I write the code. The loop below is what every session looks like.</p>
+
+    <div class="figma-steps">
+
+      <div class="step">
+        <div class="num">01</div>
+        <div>
+          <h3>I write a first draft</h3>
+          <p>I create a single file: <kbd>AeroCy/index.html</kbd>. Self-contained — HTML, CSS, and any animation all in one file. Uses the locked-in palette (section 03) and fonts (section 04) as CSS variables, so changing a color later means swapping one value.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">02</div>
+        <div>
+          <h3>You preview by double-clicking</h3>
+          <p>Open your AeroCy folder, double-click <kbd>index.html</kbd>. It opens in your default browser. That's your live preview — no server, no setup. Refresh the page after each change I make.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">03</div>
+        <div>
+          <h3>You tell me what to change — in plain words</h3>
+          <p>You don't need to know code or design terminology. Examples that work:</p>
+          <ul>
+            <li>"The hero feels too dark, brighten it"</li>
+            <li>"Make the headline bigger"</li>
+            <li>"Add a stats section below the hero with these numbers: 1000+ rules, 24/7 SOC, 3 decades AVSEC"</li>
+            <li>"Remove the testimonials section"</li>
+            <li>"I want a red/blue split like Wiz uses"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">04</div>
+        <div>
+          <h3>I edit the file, you refresh</h3>
+          <p>I make the changes, the file updates in your folder instantly. You refresh the browser tab (F5 or Ctrl+R). See the change. Repeat.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">05</div>
+        <div>
+          <h3>Drop in assets when you want them</h3>
+          <p>Find an aviation photo on <a href="https://unsplash.com" target="_blank">Unsplash</a>? Download it into your AeroCy folder, tell me the filename, I'll wire it into the right place. Same for icons, logos (when you have them), or any other image.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">06</div>
+        <div>
+          <h3>When it's good, we deploy</h3>
+          <p>You make a free account at <a href="https://vercel.com" target="_blank">vercel.com</a>. I'll walk you through dragging the AeroCy folder onto their dashboard — it gives you a live URL like <kbd>aerocy.vercel.app</kbd> in under a minute. When you buy the aerocy.io domain, we point it at Vercel. Done.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">07</div>
+        <div>
+          <h3>What you'll never have to do</h3>
+          <ul>
+            <li>Install Node.js, npm, or any developer tools</li>
+            <li>Open a terminal / command line</li>
+            <li>Learn HTML, CSS, or JavaScript</li>
+            <li>Use git or any version control</li>
+            <li>Pay for design software</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note" style="margin-top:24px;">
+      <strong>One caveat:</strong> the most ambitious motion from Reventador (full scroll-assembled hero, 3D scenes) is technically possible in plain HTML/CSS/JS but takes more iteration than a no-code tool. We'll start simple — a clean, modern, animated landing — and add complexity only where it earns its keep.
+    </div>
+  </section>
+
+  <!-- Open questions still blocking -->
+  <section>
+    <h2><span class="num">07 · Blockers</span>What still needs to be decided before final designs</h2>
+    <p class="section-desc">From the PRD's Open Questions — these don't block starting the build with placeholders, but they block final sign-off.</p>
+    <ul class="steal-list" style="font-size:15px;">
+      <li>Exact HEX values for Deep Navy, Slate, Electric Cyan, Alert Red</li>
+      <li>Logo files from client (PNG / SVG transparent)</li>
+      <li>Final copy ownership (client vs build team)</li>
+      <li>Aviation imagery licensing — Unsplash for mockups, real licensed images for production</li>
+      <li>Hebrew version yes/no (affects type spec)</li>
+    </ul>
+  </section>
+
+  <!-- Next steps -->
+  <section>
+    <h2><span class="num">08 · Start</span>One message to begin</h2>
+    <div class="next">
+      <p style="margin-top:0;">Send me this in the chat:</p>
+      <div style="background:var(--bg-2); border:1px solid var(--cyan-dim); border-radius:8px; padding:20px; margin:16px 0; font-family:'JetBrains Mono', monospace; color:var(--cyan); font-size:14px;">
+        ok, build the first draft of the AeroCy landing page in my AeroCy folder
+      </div>
+      <p>You'll get back a single <kbd>index.html</kbd> file in your AeroCy folder. Double-click it to preview. Then tell me what to change.</p>
+      <p style="margin-bottom:0; color:var(--muted); font-size:14px;">First draft will include: cinematic-ish hero with split-theme, "Challenge by the Numbers" stat block, AeroCy Solution section, a Services preview with the 4 service tiles, a credibility logo strip placeholder, regulatory imperative section, and a contact CTA. We refine from there.</p>
+    </div>
+  </section>
+
+  <footer>
+    AeroCy Mood Board · v1 · Generated <span id="d"></span><br/>
+    Re-open this file from your AeroCy folder any time you sit down to design.
+  </footer>
+
+</div>
+<script>
+  document.getElementById('d').textContent = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>

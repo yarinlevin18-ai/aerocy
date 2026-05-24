@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AeroCy — Logo Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090d;
+    --bg-2: #0b1117;
+    --panel: #11161f;
+    --panel-2: #161c27;
+    --border: #1f2937;
+    --border-bright: #2a3548;
+    --text: #e6edf3;
+    --muted: #9ba8b8;
+    --muted-dim: #6b7888;
+    --cyan: #00e0ff;
+    --cyan-dim: #0892a5;
+    --red: #ff3b4a;
+    --font-heading: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    padding: 64px 32px;
+    background:
+      radial-gradient(ellipse at 80% -10%, rgba(0,224,255,0.06) 0%, transparent 60%),
+      var(--bg);
+    min-height: 100vh;
+  }
+  .container { max-width: 1280px; margin: 0 auto; }
+
+  h1 {
+    font-family: var(--font-heading);
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .sub { color: var(--muted); margin-bottom: 48px; font-size: 17px; max-width: 720px; }
+  .sub strong { color: var(--cyan); }
+
+  .concept {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .concept-header {
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .concept-header .name {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .concept-header .name .letter {
+    color: var(--cyan);
+    margin-right: 12px;
+  }
+  .concept-header .rationale {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 560px;
+    text-align: right;
+  }
+
+  .sizes {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+  }
+  .size-cell {
+    background: var(--bg-2);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 180px;
+  }
+  .size-cell.light { background: #f5f5f7; color: #0b1117; }
+  .size-cell .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+  }
+  .size-cell.light .label { color: #6b7888; }
+
+  /* Concept-specific containers */
+  .lg-logo { display: flex; align-items: center; }
+  .sm-logo { display: flex; align-items: center; }
+  .fav-logo { display: flex; align-items: center; }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 14px;
+  }
+  footer strong { color: var(--cyan); }
+
+  .pick {
+    margin-top: 48px;
+    padding: 32px;
+    background: var(--panel);
+    border: 1px solid var(--cyan-dim);
+    border-radius: 12px;
+    text-align: center;
+  }
+  .pick h2 { font-family: var(--font-heading); font-size: 24px; margin-bottom: 12px; }
+  .pick p { color: var(--muted); }
+  .pick code { background: var(--bg-2); color: var(--cyan); padding: 4px 10px; border-radius: 4px; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Four logo directions.</h1>
+  <p class="sub">Each shown at 3 sizes (hero · nav · favicon) on dark and light backgrounds. All built as <strong>scalable SVG</strong> — sharp at any size, no design tool needed, ready to drop into the site. Tell me which letter to commit (A, B, C, or D).</p>
+
+  <!-- ============================ -->
+  <!-- CONCEPT A — PURE WORDMARK   -->
+  <!-- ============================ -->
+  <div class="concept">
+    <div class="concept-header">
+      <div class="name"><span class="letter">A.</span>Pure Wordmark</div>
+      <div class="rationale">Type-only. "Aero" in white, "Cy" in cyan italic, with a small angled accent. Most flexible — works everywhere, never looks dated. Closest to the PRD spec ("Cy reflects CyRay heritage").</div>
+    </div>
+    <div class="sizes">
+      <div class="size-cell">
+        <div class="lg-logo">
+          <svg viewBox="0 0 360 80" width="320" height="71" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="58" font-family="Space Grotesk" font-size="56" font-weight="700" letter-spacing="-1.5" fill="#e6edf3">Aero</text>
+            <text x="135" y="58" font-family="Space Grotesk" font-size="56" font-weight="700" font-style="italic" letter-spacing="-1.5" fill="#00e0ff">Cy</text>
+            <path d="M213 38 L240 38" stroke="#00e0ff" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="245" cy="38" r="3" fill="#00e0ff"/>
+          </svg>
+        </div>
+        <div class="label">Hero size — 320px</div>
+      </div>
+      <div class="size-cell">
+        <div class="sm-logo">
+          <svg viewBox="0 0 360 80" width="140" height="31" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="58" font-family="Space Grotesk" font-size="56" font-weight="700" letter-spacing="-1.5" fill="#e6edf3">Aero</text>
+            <text x="135" y="58" font-family="Space Grotesk" font-size="56" font-weight="700" font-style="italic" letter-spacing="-1.5" fill="#00e0ff">Cy</text>
+            <path d="M213 38 L240 38" stroke="#00e0ff" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="245" cy="38" r="3" fill="#00e0ff"/>
+          </svg>
+        </div>
+        <div class="label">Nav size — 140px</div>
+      </div>
+      <div class="size-cell light">
+        <div class="lg-logo">
+          <svg viewBox="0 0 360 80" width="220" height="49" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="58" font-family="Space Grotesk" font-size="56" font-weight="700" letter-spacing="-1.5" fill="#0b1117">Aero</text>
+            <text x="135" y="58" font-family="Space Grotesk" font-size="56" font-weight="700" font-style="italic" letter-spacing="-1.5" fill="#0892a5">Cy</text>
+            <path d="M213 38 L240 38" stroke="#0892a5" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="245" cy="38" r="3" fill="#0892a5"/>
+          </svg>
+        </div>
+        <div class="label">On white</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ -->
+  <!-- CONCEPT B — CHEVRON + MARK  -->
+  <!-- ============================ -->
+  <div class="concept">
+    <div class="concept-header">
+      <div class="name"><span class="letter">B.</span>Chevron Mark</div>
+      <div class="rationale">Angular three-stripe chevron pointing forward — aviation/aerospace heritage, suggests speed and direction. Mark works alone as a favicon. Most "aerospace" feeling of the four.</div>
+    </div>
+    <div class="sizes">
+      <div class="size-cell">
+        <div class="lg-logo" style="gap:18px;">
+          <svg viewBox="0 0 60 60" width="56" height="56" xmlns="http://www.w3.org/2000/svg">
+            <!-- Three-stripe chevron -->
+            <path d="M8 44 L30 16 L52 44 L46 44 L30 24 L14 44 Z" fill="#00e0ff"/>
+            <path d="M14 50 L30 30 L46 50 L42 50 L30 36 L18 50 Z" fill="#0892a5" opacity="0.85"/>
+            <path d="M22 56 L30 46 L38 56 L36 56 L30 50 L24 56 Z" fill="#0892a5" opacity="0.5"/>
+          </svg>
+          <svg viewBox="0 0 280 60" width="240" height="51" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="44" font-family="Space Grotesk" font-size="44" font-weight="700" letter-spacing="-1" fill="#e6edf3">Aero<tspan font-style="italic" fill="#00e0ff">Cy</tspan></text>
+          </svg>
+        </div>
+        <div class="label">Hero size</div>
+      </div>
+      <div class="size-cell">
+        <div class="sm-logo" style="gap:10px;">
+          <svg viewBox="0 0 60 60" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 44 L30 16 L52 44 L46 44 L30 24 L14 44 Z" fill="#00e0ff"/>
+            <path d="M14 50 L30 30 L46 50 L42 50 L30 36 L18 50 Z" fill="#0892a5" opacity="0.85"/>
+            <path d="M22 56 L30 46 L38 56 L36 56 L30 50 L24 56 Z" fill="#0892a5" opacity="0.5"/>
+          </svg>
+          <svg viewBox="0 0 280 60" width="120" height="26" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="44" font-family="Space Grotesk" font-size="44" font-weight="700" letter-spacing="-1" fill="#e6edf3">Aero<tspan font-style="italic" fill="#00e0ff">Cy</tspan></text>
+          </svg>
+        </div>
+        <div class="label">Nav size</div>
+      </div>
+      <div class="size-cell">
+        <div class="fav-logo">
+          <svg viewBox="0 0 60 60" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 44 L30 16 L52 44 L46 44 L30 24 L14 44 Z" fill="#00e0ff"/>
+            <path d="M14 50 L30 30 L46 50 L42 50 L30 36 L18 50 Z" fill="#0892a5" opacity="0.85"/>
+            <path d="M22 56 L30 46 L38 56 L36 56 L30 50 L24 56 Z" fill="#0892a5" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="label">Favicon — mark only</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ -->
+  <!-- CONCEPT C — HEX MONOGRAM     -->
+  <!-- ============================ -->
+  <div class="concept">
+    <div class="concept-header">
+      <div class="name"><span class="letter">C.</span>Hex Monogram</div>
+      <div class="rationale">Hexagon (engineering, network nodes, defense-industry heritage) holds a stylized "AC" monogram. Most "cyber + defense" feeling. Strongest as a standalone mark for app icons, business cards, tender documents.</div>
+    </div>
+    <div class="sizes">
+      <div class="size-cell">
+        <div class="lg-logo" style="gap:18px;">
+          <svg viewBox="0 0 60 60" width="56" height="56" xmlns="http://www.w3.org/2000/svg">
+            <!-- Hexagon -->
+            <path d="M30 4 L52 17 L52 43 L30 56 L8 43 L8 17 Z" fill="none" stroke="#00e0ff" stroke-width="2.2"/>
+            <!-- AC monogram -->
+            <text x="30" y="38" font-family="Space Grotesk" font-size="22" font-weight="700" text-anchor="middle" fill="#e6edf3" letter-spacing="-0.5">AC</text>
+            <!-- Subtle inner geometry -->
+            <path d="M30 12 L46 21 L46 39 L30 48 L14 39 L14 21 Z" fill="none" stroke="#0892a5" stroke-width="0.8" opacity="0.4"/>
+          </svg>
+          <svg viewBox="0 0 280 60" width="240" height="51" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="44" font-family="Space Grotesk" font-size="44" font-weight="700" letter-spacing="-1" fill="#e6edf3">Aero<tspan font-style="italic" fill="#00e0ff">Cy</tspan></text>
+          </svg>
+        </div>
+        <div class="label">Hero size</div>
+      </div>
+      <div class="size-cell">
+        <div class="sm-logo" style="gap:10px;">
+          <svg viewBox="0 0 60 60" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 4 L52 17 L52 43 L30 56 L8 43 L8 17 Z" fill="none" stroke="#00e0ff" stroke-width="2.2"/>
+            <text x="30" y="38" font-family="Space Grotesk" font-size="22" font-weight="700" text-anchor="middle" fill="#e6edf3" letter-spacing="-0.5">AC</text>
+            <path d="M30 12 L46 21 L46 39 L30 48 L14 39 L14 21 Z" fill="none" stroke="#0892a5" stroke-width="0.8" opacity="0.4"/>
+          </svg>
+          <svg viewBox="0 0 280 60" width="120" height="26" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="44" font-family="Space Grotesk" font-size="44" font-weight="700" letter-spacing="-1" fill="#e6edf3">Aero<tspan font-style="italic" fill="#00e0ff">Cy</tspan></text>
+          </svg>
+        </div>
+        <div class="label">Nav size</div>
+      </div>
+      <div class="size-cell">
+        <div class="fav-logo">
+          <svg viewBox="0 0 60 60" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 4 L52 17 L52 43 L30 56 L8 43 L8 17 Z" fill="#00e0ff"/>
+            <text x="30" y="38" font-family="Space Grotesk" font-size="22" font-weight="700" text-anchor="middle" fill="#07090d" letter-spacing="-0.5">AC</text>
+          </svg>
+        </div>
+        <div class="label">Favicon — solid fill</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ -->
+  <!-- CONCEPT D — RADAR + AIRCRAFT -->
+  <!-- ============================ -->
+  <div class="concept">
+    <div class="concept-header">
+      <div class="name"><span class="letter">D.</span>Radar &amp; Aircraft</div>
+      <div class="rationale">Concentric radar rings with crosshair and a tiny aircraft silhouette inside. The most literal interpretation of AeroCy's product — "we see every aircraft, we protect every airframe." Strong storytelling, slightly more decorative.</div>
+    </div>
+    <div class="sizes">
+      <div class="size-cell">
+        <div class="lg-logo" style="gap:18px;">
+          <svg viewBox="0 0 60 60" width="56" height="56" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer radar -->
+            <circle cx="30" cy="30" r="26" fill="none" stroke="#00e0ff" stroke-width="1.5"/>
+            <circle cx="30" cy="30" r="18" fill="none" stroke="#0892a5" stroke-width="0.8"/>
+            <circle cx="30" cy="30" r="10" fill="none" stroke="#0892a5" stroke-width="0.6" opacity="0.6"/>
+            <!-- Crosshair -->
+            <line x1="30" y1="2" x2="30" y2="58" stroke="#0892a5" stroke-width="0.6" opacity="0.5"/>
+            <line x1="2" y1="30" x2="58" y2="30" stroke="#0892a5" stroke-width="0.6" opacity="0.5"/>
+            <!-- Aircraft silhouette (top-down) -->
+            <path d="M30 18 L31 30 L42 33 L42 35 L31 33 L31 40 L33 43 L33 44 L30 43 L27 44 L27 43 L29 40 L29 33 L18 35 L18 33 L29 30 Z" fill="#e6edf3"/>
+            <!-- Scan dot -->
+            <circle cx="44" cy="16" r="2" fill="#00e0ff"/>
+          </svg>
+          <svg viewBox="0 0 280 60" width="240" height="51" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="44" font-family="Space Grotesk" font-size="44" font-weight="700" letter-spacing="-1" fill="#e6edf3">Aero<tspan font-style="italic" fill="#00e0ff">Cy</tspan></text>
+          </svg>
+        </div>
+        <div class="label">Hero size</div>
+      </div>
+      <div class="size-cell">
+        <div class="sm-logo" style="gap:10px;">
+          <svg viewBox="0 0 60 60" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="26" fill="none" stroke="#00e0ff" stroke-width="1.5"/>
+            <circle cx="30" cy="30" r="18" fill="none" stroke="#0892a5" stroke-width="0.8"/>
+            <line x1="30" y1="2" x2="30" y2="58" stroke="#0892a5" stroke-width="0.6" opacity="0.5"/>
+            <line x1="2" y1="30" x2="58" y2="30" stroke="#0892a5" stroke-width="0.6" opacity="0.5"/>
+            <path d="M30 18 L31 30 L42 33 L42 35 L31 33 L31 40 L33 43 L33 44 L30 43 L27 44 L27 43 L29 40 L29 33 L18 35 L18 33 L29 30 Z" fill="#e6edf3"/>
+          </svg>
+          <svg viewBox="0 0 280 60" width="120" height="26" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="44" font-family="Space Grotesk" font-size="44" font-weight="700" letter-spacing="-1" fill="#e6edf3">Aero<tspan font-style="italic" fill="#00e0ff">Cy</tspan></text>
+          </svg>
+        </div>
+        <div class="label">Nav size</div>
+      </div>
+      <div class="size-cell">
+        <div class="fav-logo">
+          <svg viewBox="0 0 60 60" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="26" fill="#00e0ff"/>
+            <path d="M30 18 L31 30 L42 33 L42 35 L31 33 L31 40 L33 43 L33 44 L30 43 L27 44 L27 43 L29 40 L29 33 L18 35 L18 33 L29 30 Z" fill="#07090d"/>
+          </svg>
+        </div>
+        <div class="label">Favicon</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pick">
+    <h2>Tell me your pick.</h2>
+    <p>Reply with a single letter — <code>A</code>, <code>B</code>, <code>C</code>, or <code>D</code> — and I'll wire that logo into the site's nav and footer, and set it as the browser tab favicon.</p>
+  </div>
+
+  <footer>
+    <strong>Honest note:</strong> these are SVG logos I designed quickly as starting points. They're production-usable but a professional brand designer would refine details (kerning, weight balance, mark proportions). If AeroCy is closing tender-grade deals, consider hiring a designer for the final mark after you pick a direction here.
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AeroCy — Operational Resilience for Aviation</title>
+<meta name="description" content="AeroCy bridges flight safety and digital security. International-grade operational resilience for civil and general aviation. Built on three decades of AVSEC experience and CyRay's state-level detection technology." />
+<meta name="keywords" content="aviation cybersecurity, aviation cyber, airline cyber resilience, airport cybersecurity, ICAO compliance, EASA compliance, IT OT fusion, vendor shield, EFB security, SIEM SOC aviation, CyRay, Ben-Gurion Airport, aviation risk assessment" />
+<meta name="author" content="AeroCy" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#07090d" />
+<link rel="canonical" href="https://aerocy.io/" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+<!-- Open Graph (Facebook, LinkedIn, Slack) -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aerocy.io/" />
+<meta property="og:title" content="AeroCy — Operational Resilience for Aviation" />
+<meta property="og:description" content="Bridging flight safety and digital security. A protective envelope across IT/OT/IoT, supply chain, regulatory compliance, and crisis management — built on CyRay's state-level detection heritage." />
+<meta property="og:image" content="https://aerocy.io/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="AeroCy — Ensuring continuity in an interconnected sky" />
+<meta property="og:site_name" content="AeroCy" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AeroCy — Operational Resilience for Aviation" />
+<meta name="twitter:description" content="Bridging flight safety and digital security. A protective envelope for civil and general aviation, built on CyRay's state-level detection heritage." />
+<meta name="twitter:image" content="https://aerocy.io/og-image.png" />
+<meta name="twitter:image:alt" content="AeroCy — Ensuring continuity in an interconnected sky" />
+
+<!-- Schema.org organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AeroCy",
+  "url": "https://aerocy.io",
+  "logo": "https://aerocy.io/favicon.svg",
+  "description": "Operational resilience for civil and general aviation. Bridging flight safety and digital security across IT/OT/IoT, supply chain, regulatory compliance, and crisis management.",
+  "email": "info@aerocy.io",
+  "sameAs": []
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    --bg: #07090d;
+    --bg-2: #0b1117;
+    --panel: #11161f;
+    --panel-2: #161c27;
+    --border: #1f2937;
+    --border-bright: #2a3548;
+    --text: #e6edf3;
+    --muted: #9ba8b8;
+    --muted-dim: #6b7888;
+    --navy: #0b1d36;
+    --slate: #5b6677;
+    --cyan: #00e0ff;
+    --cyan-dim: #0892a5;
+    --cyan-glow: rgba(0,224,255,0.4);
+    --red: #ff3b4a;
+    --red-dim: #b3202c;
+
+    --font-heading: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+
+    --max: 1280px;
+    --section-pad: 120px;
+  }
+
+  /* ============ RESET ============ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+  ::selection { background: var(--cyan); color: var(--bg); }
+
+  /* ============ UTILITIES ============ */
+  .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+  .eyebrow { display: none; }
+  h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
+  h1 { font-size: clamp(48px, 7vw, 96px); }
+  h2 { font-size: clamp(36px, 5vw, 64px); }
+  h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 500; }
+  .lead { font-size: clamp(18px, 1.5vw, 22px); color: var(--muted); max-width: 640px; line-height: 1.5; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--cyan);
+    color: var(--bg);
+    font-weight: 700;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 30px var(--cyan-glow);
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-bright);
+  }
+  .btn-ghost:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+  .btn .arr { transition: transform 0.2s; }
+  .btn:hover .arr { transform: translateX(4px); }
+
+  /* Section spacing */
+  section { padding: var(--section-pad) 0; position: relative; }
+
+  /* Section eyebrow + title combo */
+  .section-head { margin-bottom: 64px; max-width: 720px; }
+  .section-head .eyebrow { margin-bottom: 20px; }
+  .section-head h2 { margin-bottom: 16px; }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ============ NAV ============ */
+  nav.top {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 32px;
+    background: linear-gradient(180deg, rgba(7,9,13,0.95) 0%, rgba(7,9,13,0.6) 80%, transparent 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: padding 0.3s, background 0.3s;
+  }
+  nav.top.scrolled { padding: 14px 32px; background: rgba(7,9,13,0.95); border-bottom: 1px solid var(--border); }
+  nav.top .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  nav.top .logo {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  nav.top .logo-mark {
+    width: 32px;
+    height: 32px;
+    display: block;
+    flex-shrink: 0;
+  }
+  nav.top .logo-text .mark {
+    color: var(--cyan);
+    font-style: italic;
+  }
+  /* Subtle pulsing scan dot on the radar mark */
+  .logo-scandot {
+    transform-origin: 30px 30px;
+    animation: scandot 4s linear infinite;
+  }
+  @keyframes scandot {
+    0% { transform: rotate(0deg); opacity: 1; }
+    100% { transform: rotate(360deg); opacity: 1; }
+  }
+  nav.top ul {
+    list-style: none;
+    display: flex;
+    gap: 36px;
+    align-items: center;
+  }
+  nav.top ul a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s;
+    position: relative;
+  }
+  nav.top ul a:hover { color: var(--cyan); }
+  nav.top ul a::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; left: 0;
+    width: 0; height: 1px;
+    background: var(--cyan);
+    transition: width 0.3s;
+  }
+  nav.top ul a:hover::after { width: 100%; }
+  nav.top .nav-cta { padding: 10px 18px; font-size: 11px; }
+
+  .mobile-toggle { display: none; }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero .bg {
+    position: absolute; inset: 0;
+    background: url('bing-hui-yau-OOCH3KIlqFE-unsplash.jpg') center/cover no-repeat;
+    z-index: 1;
+    animation: kenburns 30s ease-in-out infinite alternate;
+    transform-origin: center center;
+  }
+  @keyframes kenburns {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.12) translate(-2%, 1%); }
+  }
+  .hero canvas.particles {
+    position: absolute; inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .hero .bg::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(7,9,13,0.5) 0%, transparent 30%, rgba(7,9,13,0.85) 100%),
+      linear-gradient(90deg, rgba(7,9,13,0.7) 0%, transparent 50%);
+  }
+  /* Diagonal split overlay */
+  .hero .split-red {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,59,74,0.18) 0%, transparent 45%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .hero .split-cyan {
+    position: absolute; inset: 0;
+    background: linear-gradient(315deg, rgba(0,224,255,0.18) 0%, transparent 45%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  /* Subtle grid */
+  .hero .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,224,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,224,255,0.06) 1px, transparent 1px);
+    background-size: 80px 80px;
+    z-index: 3;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+  }
+  .hero .container { position: relative; z-index: 10; padding-top: 100px; padding-bottom: 80px; }
+  .hero .eyebrow { margin-bottom: 32px; }
+  .hero h1 {
+    margin-bottom: 32px;
+    max-width: 1000px;
+  }
+  .hero h1 .red { color: var(--red); }
+  .hero h1 .cyan { color: var(--cyan); }
+  .hero .sub {
+    font-size: clamp(18px, 1.6vw, 22px);
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 48px;
+    line-height: 1.5;
+  }
+  .hero .ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* Live flight widget */
+  .live-flights {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    z-index: 11;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px 24px;
+    background: rgba(11, 17, 23, 0.7);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    max-width: 280px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+  }
+  .live-flights.in { opacity: 1; transform: none; }
+  .live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 14px var(--cyan);
+    margin-top: 8px;
+    flex-shrink: 0;
+    animation: livepulse 1.8s ease-in-out infinite;
+  }
+  .live-dot.offline {
+    background: var(--red);
+    box-shadow: 0 0 14px var(--red);
+  }
+  @keyframes livepulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.85); }
+  }
+  .live-label {
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .live-count {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    transition: opacity 0.3s;
+  }
+  .live-count.updating { opacity: 0.5; }
+  .live-source {
+    font-size: 10px;
+    color: var(--muted-dim);
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+  .live-source a {
+    color: var(--muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border-bright);
+  }
+  .live-source a:hover { color: var(--cyan); text-decoration-color: var(--cyan); }
+
+  @media (max-width: 768px) {
+    .live-flights {
+      bottom: 20px;
+      right: 20px;
+      left: 20px;
+      max-width: none;
+      padding: 14px 18px;
+    }
+    .live-count { font-size: 22px; }
+  }
+
+  /* Scroll indicator */
+  .scroll-ind {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+  }
+  .scroll-ind .line {
+    width: 1px; height: 60px;
+    background: linear-gradient(180deg, transparent, var(--cyan));
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-ind .line::after {
+    content: '';
+    position: absolute; left: 0; right: 0; top: -20px;
+    height: 20px;
+    background: var(--cyan);
+    animation: scroll-dot 2.5s ease-in-out infinite;
+  }
+  @keyframes scroll-dot {
+    0% { top: -20px; opacity: 0; }
+    30% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  /* ============ NUMBERS SECTION (now also holds Reality intro) ============ */
+  .numbers {
+    position: relative;
+    background: var(--bg);
+  }
+  .numbers .bg {
+    position: absolute; inset: 0;
+    background: url('andres-dallimonti-kjqTlMHLci4-unsplash.jpg') center/cover no-repeat;
+    opacity: 0.25;
+    z-index: 0;
+  }
+  .numbers .bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, var(--bg) 0%, transparent 30%, transparent 70%, var(--bg) 100%);
+  }
+  .numbers .container { position: relative; z-index: 2; }
+  .numbers .head { margin-bottom: 80px; }
+  .numbers .head h2 { margin: 0 0 16px; max-width: 800px; }
+
+  /* Threat split */
+  .threat-split {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 64px;
+    align-items: center;
+    margin-bottom: 80px;
+  }
+  .threat-visual {
+    position: relative;
+    aspect-ratio: 4/3;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--red-dim);
+    box-shadow: 0 0 60px rgba(255, 59, 74, 0.15);
+  }
+  .threat-visual img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: contrast(1.15) saturate(1.2);
+    transition: transform 8s ease-out;
+  }
+  .threat-visual:hover img { transform: scale(1.08); }
+  .threat-visual::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, rgba(255,59,74,0.25) 0%, transparent 60%),
+      linear-gradient(180deg, transparent 40%, var(--bg) 100%);
+    pointer-events: none;
+  }
+  .threat-tag {
+    position: absolute;
+    top: 20px; left: 20px;
+    z-index: 3;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--red);
+    padding: 6px 10px;
+    background: rgba(7,9,13,0.7);
+    border: 1px solid var(--red-dim);
+    border-radius: 2px;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+  .threat-scanline {
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    z-index: 3;
+    animation: scanline 4s linear infinite;
+  }
+  @keyframes scanline {
+    0% { top: 0; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+  .numbers .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .counter-card {
+    background: linear-gradient(180deg, rgba(17,22,31,0.9) 0%, rgba(11,17,23,0.95) 100%);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .counter-card:hover { border-color: var(--cyan-dim); transform: translateY(-4px); }
+  .counter-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 40px; height: 2px;
+    background: var(--cyan);
+    transition: width 0.4s;
+  }
+  .counter-card:hover::before { width: 100%; }
+  .counter-card .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .counter-card .value {
+    font-family: var(--font-heading);
+    font-size: clamp(48px, 5vw, 72px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+    letter-spacing: -0.04em;
+  }
+  .counter-card .value .unit { color: var(--cyan); font-size: 0.5em; vertical-align: super; margin-left: 4px; }
+  .counter-card .desc {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+  .counter-card.alert::before { background: var(--red); }
+  .counter-card.alert .value { color: var(--red); }
+  .counter-card.alert .value .unit { color: var(--red); }
+
+  /* ============ INCIDENTS + LOOPHOLES ============ */
+  .incidents {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+  .incidents .section-head { margin-bottom: 56px; }
+  .incidents .section-head h2 { font-size: clamp(36px, 5vw, 56px); }
+  .incident-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 80px;
+  }
+  .incident-grid .incident:nth-child(4),
+  .incident-grid .incident:nth-child(5) {
+    /* Two cards centered on the second row */
+  }
+  .incident {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--red);
+    border-radius: 6px;
+    padding: 28px 24px;
+    transition: border-color 0.3s, transform 0.3s, background 0.3s;
+  }
+  .incident:hover {
+    background: var(--panel-2);
+    border-color: var(--border-bright);
+    border-left-color: var(--red);
+    transform: translateY(-3px);
+  }
+  .incident-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .incident-year {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .incident-severity {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--red);
+    padding: 4px 8px;
+    border: 1px solid var(--red-dim);
+    border-radius: 2px;
+  }
+  .incident h3 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .incident p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .incident-source {
+    font-size: 12px;
+    color: var(--cyan);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .incident-source:hover { color: var(--text); }
+
+  /* Loopholes */
+  .loopholes {
+    margin-top: 24px;
+    padding: 48px 0 0;
+    border-top: 1px solid var(--border);
+  }
+  .loopholes-title {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+  .loophole-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .loophole {
+    background: var(--bg-2);
+    padding: 28px 24px;
+    transition: background 0.3s;
+  }
+  .loophole:hover { background: var(--panel); }
+  .loophole-num {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    color: var(--cyan);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+  .loophole-name {
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .loophole-desc {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .incidents-footnote {
+    margin-top: 40px;
+    color: var(--muted-dim);
+    font-size: 12px;
+    line-height: 1.6;
+    max-width: 800px;
+    font-style: italic;
+  }
+
+  /* ============ SOLUTION SECTION ============ */
+  .solution { background: var(--bg-2); border-top: 1px solid var(--border); }
+  .solution .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 64px;
+  }
+  .pillar {
+    padding: 40px 32px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .pillar:hover { border-color: var(--cyan-dim); transform: translateY(-4px); }
+  .pillar .num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--cyan);
+    margin-bottom: 24px;
+  }
+  .pillar h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .pillar p { color: var(--muted); font-size: 15px; }
+  .pillar .icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--cyan-dim);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    color: var(--cyan);
+  }
+
+  /* ============ IMAGE BAND DIVIDER ============ */
+  .image-band {
+    position: relative;
+    height: 60vh;
+    min-height: 480px;
+    max-height: 720px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .image-band-img {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.05);
+    will-change: transform;
+    transition: transform 0.4s ease-out;
+  }
+  .image-band-overlay {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, var(--bg) 0%, rgba(7,9,13,0.6) 30%, rgba(7,9,13,0.6) 70%, var(--bg) 100%),
+      radial-gradient(ellipse at center, rgba(7,9,13,0.5) 0%, rgba(7,9,13,0.85) 100%);
+  }
+  .image-band-text {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 0 32px;
+    max-width: 1100px;
+  }
+  .image-band-text .band-headline {
+    font-family: var(--font-heading);
+    font-size: clamp(48px, 8vw, 112px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin: 0;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.6);
+  }
+  .image-band-text .band-cyan { color: var(--cyan); }
+
+  /* ============ SERVICES ============ */
+  .services {
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .services::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url('moritz-mentges-cj2I_KczBvY-unsplash.jpg') center/cover no-repeat;
+    opacity: 0.08;
+    z-index: 0;
+    filter: grayscale(0.3) contrast(1.1);
+  }
+  .services::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, var(--bg) 0%, transparent 30%, transparent 70%, var(--bg) 100%);
+    z-index: 0;
+  }
+  .services .container { position: relative; z-index: 1; }
+  .services .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 48px;
+  }
+  .service {
+    padding: 48px 40px;
+    background: var(--bg-2);
+    transition: background 0.3s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+  .service:hover {
+    background: var(--panel);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px -20px rgba(0, 224, 255, 0.15);
+    z-index: 2;
+  }
+  .service::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(0, 224, 255, 0.08) 0%, transparent 40%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .service:hover::before { opacity: 1; }
+  .service .head {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .service .icon-box {
+    width: 56px; height: 56px;
+    background: var(--bg);
+    border: 1px solid var(--border-bright);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cyan);
+    flex-shrink: 0;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .service:hover .icon-box {
+    border-color: var(--cyan);
+    box-shadow: 0 0 24px rgba(0,224,255,0.2);
+  }
+  .service.shield .icon-box {
+    border-color: var(--cyan-dim);
+    box-shadow: 0 0 16px rgba(0,224,255,0.15);
+  }
+  .service h3 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .service .tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .service p { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
+  .service .more {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .service .more .arr { transition: transform 0.2s; }
+  .service:hover .more .arr { transform: translateX(4px); }
+  .service.shield::after {
+    content: 'HIGHLIGHTED';
+    position: absolute;
+    top: 16px; right: 20px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--cyan);
+    padding: 4px 8px;
+    border: 1px solid var(--cyan-dim);
+    border-radius: 2px;
+  }
+
+  /* ============ TECHNOLOGY ============ */
+  .technology { background: var(--bg-2); border-top: 1px solid var(--border); }
+  .technology .grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .technology .visual {
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-bright);
+  }
+  .technology .visual img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: contrast(1.2) saturate(1.1);
+  }
+  .technology .visual::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, transparent 60%, rgba(0,224,255,0.2) 100%),
+      linear-gradient(180deg, transparent 60%, var(--bg-2) 100%);
+  }
+  .technology .visual-tag {
+    position: absolute;
+    top: 24px; left: 24px;
+    z-index: 2;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--cyan);
+    padding: 6px 10px;
+    background: rgba(7,9,13,0.7);
+    border: 1px solid var(--cyan-dim);
+    border-radius: 2px;
+    backdrop-filter: blur(4px);
+  }
+  .technology ul { list-style: none; margin-top: 32px; }
+  .technology li {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .technology li:last-child { border-bottom: none; }
+  .technology li .check {
+    width: 24px; height: 24px;
+    color: var(--cyan);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .technology li .text {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .technology li .text .em { color: var(--cyan); font-weight: 600; }
+
+  /* ============ TECH-CLIENTS (merged) ============ */
+  .tech-clients {
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .tech-clients-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .tech-clients-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+  .logo-ph {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--muted-dim);
+    letter-spacing: 0.05em;
+    padding: 12px 20px;
+    border: 1px dashed var(--border-bright);
+    border-radius: 4px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .logo-ph:hover { color: var(--text); border-color: var(--cyan-dim); }
+
+  /* ============ CTA (single) ============ */
+  .cta-section { background: var(--bg-2); border-top: 1px solid var(--border); }
+  .cta-single {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 64px 40px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-single::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  }
+  .cta-single .eyebrow { justify-content: center; }
+  .cta-single h2 { margin-bottom: 20px; font-size: clamp(32px, 4vw, 48px); }
+  .cta-single p { color: var(--muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--bg);
+    padding: 80px 0 32px;
+    border-top: 1px solid var(--border);
+  }
+  footer .grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 64px;
+  }
+  footer .brand .logo {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--text);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  footer .brand .logo .logo-mark {
+    width: 36px;
+    height: 36px;
+    display: block;
+    flex-shrink: 0;
+  }
+  footer .brand .logo .logo-text .mark { color: var(--cyan); font-style: italic; }
+  footer .brand p { color: var(--muted); font-size: 14px; max-width: 320px; }
+  footer .col h4 {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  footer .col ul { list-style: none; }
+  footer .col li { margin-bottom: 12px; }
+  footer .col a {
+    color: var(--muted);
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  footer .col a:hover { color: var(--cyan); }
+  footer .bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted-dim);
+    letter-spacing: 0.1em;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px) {
+    :root { --section-pad: 80px; }
+    .technology .grid { grid-template-columns: 1fr; gap: 48px; }
+    .technology .visual { aspect-ratio: 16/10; max-width: 600px; }
+    .threat-split { grid-template-columns: 1fr; gap: 48px; }
+    .threat-visual { max-width: 600px; aspect-ratio: 16/10; }
+    .numbers .grid { grid-template-columns: repeat(2, 1fr); }
+    .incident-grid { grid-template-columns: repeat(2, 1fr); }
+    .loophole-grid { grid-template-columns: repeat(2, 1fr); }
+    .solution .pillars { grid-template-columns: 1fr; }
+    .services .grid { grid-template-columns: 1fr; }
+    .image-band { height: 50vh; }
+    footer .grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav.top ul { display: none; }
+    nav.top .nav-cta { padding: 8px 14px; font-size: 10px; }
+    .container { padding: 0 20px; }
+    .numbers .grid { grid-template-columns: 1fr; }
+    footer .grid { grid-template-columns: 1fr; gap: 32px; }
+    .scroll-ind { display: none; }
+  }
+
+  /* Cookie banner */
+  .cookie-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    max-width: 760px;
+    margin: 0 auto;
+    z-index: 200;
+    background: rgba(11, 17, 23, 0.95);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 12px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 224, 255, 0.08);
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+  }
+  .cookie-banner.show { transform: none; opacity: 1; }
+  .cookie-banner .cookie-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .cookie-banner .cookie-text strong { color: var(--text); font-weight: 600; }
+  .cookie-banner .cookie-text a { color: var(--cyan); text-decoration: underline; text-decoration-color: var(--cyan-dim); }
+  .cookie-banner .cookie-text a:hover { text-decoration-color: var(--cyan); }
+  .cookie-banner .cookie-actions { display: flex; gap: 10px; flex-shrink: 0; }
+  .cookie-banner .cookie-btn {
+    padding: 10px 18px;
+    font-family: var(--font-heading);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  .cookie-banner .cookie-btn.primary { background: var(--cyan); color: var(--bg); }
+  .cookie-banner .cookie-btn.primary:hover { box-shadow: 0 0 20px rgba(0, 224, 255, 0.4); }
+  .cookie-banner .cookie-btn.ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border-bright);
+  }
+  .cookie-banner .cookie-btn.ghost:hover { color: var(--text); border-color: var(--text); }
+  @media (max-width: 600px) {
+    .cookie-banner { flex-direction: column; align-items: stretch; gap: 14px; }
+    .cookie-banner .cookie-actions { justify-content: flex-end; }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="top">
+  <div class="wrap">
+    <a href="#home" class="logo">
+      <svg class="logo-mark" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="30" cy="30" r="26" fill="none" stroke="#00e0ff" stroke-width="1.8"/>
+        <circle cx="30" cy="30" r="18" fill="none" stroke="#0892a5" stroke-width="1"/>
+        <line x1="30" y1="2" x2="30" y2="58" stroke="#0892a5" stroke-width="0.8" opacity="0.5"/>
+        <line x1="2" y1="30" x2="58" y2="30" stroke="#0892a5" stroke-width="0.8" opacity="0.5"/>
+        <path d="M30 18 L31 30 L42 33 L42 35 L31 33 L31 40 L33 43 L33 44 L30 43 L27 44 L27 43 L29 40 L29 33 L18 35 L18 33 L29 30 Z" fill="#e6edf3"/>
+        <circle cx="44" cy="16" r="2" fill="#00e0ff" class="logo-scandot"/>
+      </svg>
+      <span class="logo-text">Aero<span class="mark">Cy</span></span>
+    </a>
+    <ul>
+      <li><a href="#about">The Threat</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#technology">Technology</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="btn btn-primary nav-cta">Contact us <span class="arr">→</span></a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="bg"></div>
+  <div class="split-red"></div>
+  <div class="split-cyan"></div>
+  <div class="grid-bg"></div>
+  <canvas class="particles" id="heroParticles"></canvas>
+
+  <div class="container">
+    <div class="eyebrow reveal">Operational Continuity · Tender Ready</div>
+    <h1 class="reveal">
+      Ensuring <span class="cyan">Operational Continuity</span> in an Interconnected Sky and <span class="cyan">SMART Airport</span>.
+    </h1>
+    <p class="sub reveal">
+      AeroCy bridges the critical gap between <span style="color:var(--red);">flight safety</span> and <span style="color:var(--cyan);">digital security</span> — a comprehensive protective envelope that keeps aviation infrastructure resilient and regulator-ready.
+    </p>
+    <div class="ctas reveal">
+      <a href="contact.html" class="btn btn-primary">Request Risk Assessment <span class="arr">→</span></a>
+      <a href="#services" class="btn btn-ghost">Explore Our Platform <span class="arr">→</span></a>
+    </div>
+  </div>
+
+  <div class="live-flights" id="liveFlights">
+    <div class="live-dot" id="liveDot"></div>
+    <div>
+      <div class="live-label">Aircraft airborne now</div>
+      <div class="live-count" id="liveCount">—</div>
+      <div class="live-source">
+        Live · <a href="https://opensky-network.org/" target="_blank" rel="noopener">OpenSky Network</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-ind">
+    <span>SCROLL</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ============ THE THREAT (merged Reality + Numbers) ============ -->
+<section class="numbers" id="about">
+  <div class="bg"></div>
+  <div class="container">
+    <div class="threat-split">
+      <div class="head reveal">
+        <div class="eyebrow">The Reality</div>
+        <h2>Aviation's digital perimeter is <span style="color:var(--red);">100% exposed</span>.</h2>
+        <p class="lead">Every airline, airport, and ground operator runs on an interconnected ecosystem of IT, OT, IoT, e-Operations, and supply-chain vendors. A single compromised vendor is a path into the cockpit.</p>
+      </div>
+      <div class="threat-visual reveal">
+        <img src="clint-patterson-dYEuFB8KQJk-unsplash.jpg" alt="A hooded figure illuminated by cyan monitor light — representing the threat actor" />
+        <div class="threat-tag">◉ ACTIVE THREAT VECTOR</div>
+        <div class="threat-scanline"></div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="counter-card alert reveal">
+        <div class="label">Supply-chain exposure</div>
+        <div class="value"><span class="counter" data-target="100">0</span><span class="unit">%</span></div>
+        <div class="desc">of aviation organisations are exposed via their supply chain — even with hardened perimeters.</div>
+      </div>
+      <div class="counter-card reveal">
+        <div class="label">Detection rules deployed</div>
+        <div class="value"><span class="counter" data-target="1000">0</span><span class="unit">+</span></div>
+        <div class="desc">civil-aviation-specific correlation rules running from day one.</div>
+      </div>
+      <div class="counter-card reveal">
+        <div class="label">SOC coverage</div>
+        <div class="value"><span class="counter" data-target="24">0</span><span class="unit">/7</span></div>
+        <div class="desc">continuous SIEM/SOC integration with real-time, AI-driven rule updates.</div>
+      </div>
+      <div class="counter-card reveal">
+        <div class="label">AVSEC heritage</div>
+        <div class="value"><span class="counter" data-target="30">0</span><span class="unit">YR</span></div>
+        <div class="desc">three decades of intelligence-driven aviation security operations.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REAL INCIDENTS + LOOPHOLES ============ -->
+<section class="incidents">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>This isn't theoretical.<br/><span style="color:var(--red);">It's the public record.</span></h2>
+      <p class="lead" style="margin-top:20px;">Five disclosed aviation cyber incidents in the last decade. Real organisations. Real damage. All publicly reported.</p>
+    </div>
+
+    <div class="incident-grid">
+
+      <article class="incident reveal">
+        <div class="incident-head">
+          <div class="incident-year">2023</div>
+          <div class="incident-severity">RANSOMWARE</div>
+        </div>
+        <h3>Boeing — LockBit ransomware attack</h3>
+        <p>The LockBit ransomware group breached Boeing's parts and distribution business, exfiltrating ~43GB of internal data after Boeing declined to pay. The data was published on LockBit's leak site.</p>
+        <a class="incident-source" href="https://www.bleepingcomputer.com/news/security/boeing-confirms-cyberattack-amid-lockbit-ransomware-claims/" target="_blank" rel="noopener">Source: BleepingComputer →</a>
+      </article>
+
+      <article class="incident reveal">
+        <div class="incident-head">
+          <div class="incident-year">2021</div>
+          <div class="incident-severity">SUPPLY CHAIN</div>
+        </div>
+        <h3>SITA — passenger-data breach</h3>
+        <p>SITA's Passenger Service System was breached, exposing frequent-flyer records from dozens of airlines including Singapore Airlines, Lufthansa, Air India, and others. A textbook supply-chain compromise.</p>
+        <a class="incident-source" href="https://www.bbc.com/news/technology-56278919" target="_blank" rel="noopener">Source: BBC News →</a>
+      </article>
+
+      <article class="incident reveal">
+        <div class="incident-head">
+          <div class="incident-year">2020</div>
+          <div class="incident-severity">DATA BREACH</div>
+        </div>
+        <h3>easyJet — 9M customer records exposed</h3>
+        <p>A "highly sophisticated" cyber attack exposed personal data of 9 million customers and credit-card details of 2,208. The carrier faced a multi-million-pound class action.</p>
+        <a class="incident-source" href="https://www.bbc.com/news/technology-52722626" target="_blank" rel="noopener">Source: BBC News →</a>
+      </article>
+
+      <article class="incident reveal">
+        <div class="incident-head">
+          <div class="incident-year">2018</div>
+          <div class="incident-severity">MAGECART</div>
+        </div>
+        <h3>British Airways — 380k card details stolen</h3>
+        <p>A Magecart-style web skimmer was injected into BA's payment flow, capturing 380,000 customer card records over 15 days. The ICO ultimately fined BA £20M.</p>
+        <a class="incident-source" href="https://ico.org.uk/about-the-ico/media-centre/news-and-blogs/2020/10/ico-fines-british-airways-20m-for-data-breach-affecting-more-than-400-000-customers/" target="_blank" rel="noopener">Source: UK ICO →</a>
+      </article>
+
+      <article class="incident reveal">
+        <div class="incident-head">
+          <div class="incident-year">2015</div>
+          <div class="incident-severity">OPERATIONAL DOWNTIME</div>
+        </div>
+        <h3>LOT Polish Airlines — flight-plan systems grounded</h3>
+        <p>A DDoS attack on LOT's flight-planning infrastructure grounded ~10 flights and stranded ~1,400 passengers at Warsaw Chopin. One of the first publicly acknowledged "operational" aviation cyber events.</p>
+        <a class="incident-source" href="https://www.reuters.com/article/idUSKBN0P12LH/" target="_blank" rel="noopener">Source: Reuters →</a>
+      </article>
+
+    </div>
+
+    <!-- Loopholes / attack vectors -->
+    <div class="loopholes reveal">
+      <h3 class="loopholes-title">The loopholes attackers actually use</h3>
+      <div class="loophole-grid">
+        <div class="loophole">
+          <div class="loophole-num">01</div>
+          <div class="loophole-name">Supply-chain vendor access</div>
+          <div class="loophole-desc">Third-party booking, catering, ground-handling, and MRO systems — all with privileged network access, often without parity-grade security.</div>
+        </div>
+        <div class="loophole">
+          <div class="loophole-num">02</div>
+          <div class="loophole-name">EFB &amp; cockpit-adjacent devices</div>
+          <div class="loophole-desc">Electronic Flight Bags carry mission-critical data and frequently sync with airline backends over public networks at the gate.</div>
+        </div>
+        <div class="loophole">
+          <div class="loophole-num">03</div>
+          <div class="loophole-name">ADS-B &amp; legacy protocol exposure</div>
+          <div class="loophole-desc">Unauthenticated broadcast protocols still underpin parts of air-traffic awareness. Spoofing and jamming research is publicly documented.</div>
+        </div>
+        <div class="loophole">
+          <div class="loophole-num">04</div>
+          <div class="loophole-name">e-Operations &amp; passenger systems</div>
+          <div class="loophole-desc">Loyalty programs, check-in, baggage, and PSS environments hold richer personal data than most realise — and are the most frequently breached.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="incidents-footnote">All incidents cited are publicly disclosed. Sources link to the original reporting. AeroCy makes no claim of involvement in any of the above — they are presented as evidence of the threat environment in which aviation operates.</p>
+  </div>
+</section>
+
+<!-- ============ THE AEROCY SOLUTION ============ -->
+<section class="solution">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">The AeroCy Solution</div>
+      <h2>A protective envelope, built on three pillars.</h2>
+      <p class="lead">Not generic cybersecurity bolted onto aviation. A holistic resilience layer purpose-built for the protocols, regulators, and operational realities of civil aviation.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar reveal">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 L2 7 v6 c0 5 4 9 10 11 6-2 10-6 10-11 V7z"/></svg>
+        </div>
+        <div class="num">01 · PILLAR</div>
+        <h3>Risk-based</h3>
+        <p>Prioritise the critical assets and high-impact scenarios — not the loudest alerts. Resources flow to what would actually ground operations.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2 v3 M12 19 v3 M2 12 h3 M19 12 h3 M4.93 4.93 l2.12 2.12 M16.95 16.95 l2.12 2.12 M4.93 19.07 l2.12 -2.12 M16.95 7.05 l2.12 -2.12"/></svg>
+        </div>
+        <div class="num">02 · PILLAR</div>
+        <h3>Threat-oriented</h3>
+        <p>Focus on the actual adversaries and attack vectors targeting aviation — APTs, supply-chain actors, ransomware crews — not a generic threat library.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12 h18 M12 3 a14 14 0 0 1 0 18 a14 14 0 0 1 0 -18"/></svg>
+        </div>
+        <div class="num">03 · PILLAR</div>
+        <h3>Intelligence-driven</h3>
+        <p>Self-collected aviation intel fused with global threat intelligence — preempting attacks before they touch your fleet, terminal, or vendor network.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMAGE BAND DIVIDER ============ -->
+<div class="image-band">
+  <div class="image-band-img" style="background-image: url('bao-menglong--FhoJYnw-cg-unsplash.jpg');"></div>
+  <div class="image-band-overlay"></div>
+  <div class="image-band-text reveal">
+    <div class="band-headline">There is no flight safety<br/>without <span class="band-cyan">digital security</span>.</div>
+  </div>
+</div>
+
+<!-- ============ SERVICES ============ -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Four services. One envelope.</h2>
+    </div>
+
+    <div class="grid">
+      <div class="service reveal">
+        <div class="head">
+          <div class="icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+          <div>
+            <div class="tag">01 · Monitoring</div>
+            <h3>Hybrid Threat Monitoring</h3>
+          </div>
+        </div>
+        <p>Continuous detection across IT, OT, IoT, e-Operation, and data layers — the only kind of monitoring that catches threats moving between worlds.</p>
+        <a href="#" class="more">Learn more <span class="arr">→</span></a>
+      </div>
+
+      <div class="service shield reveal">
+        <div class="head">
+          <div class="icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 L3 6 v6 c0 5 4 9 9 10 5-1 9-5 9-10 V6z"/><path d="M9 12 l2 2 4-4" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <div class="tag">02 · Supply Chain</div>
+            <h3>Vendor Shield</h3>
+          </div>
+        </div>
+        <p>Supply-chain hardening for the 100% exposed perimeter. Continuous vendor risk scoring, contractual compliance enforcement, and isolation playbooks.</p>
+        <a href="#" class="more">Learn more <span class="arr">→</span></a>
+      </div>
+
+      <div class="service reveal">
+        <div class="head">
+          <div class="icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11 l3 3 8-8"/><path d="M21 12 v7 a2 2 0 0 1 -2 2 H5 a2 2 0 0 1 -2 -2 V5 a2 2 0 0 1 2 -2 h11"/></svg>
+          </div>
+          <div>
+            <div class="tag">03 · Compliance</div>
+            <h3>Regulatory Compliance &amp; Audit</h3>
+          </div>
+        </div>
+        <p>ICAO, IATA, EASA, ACI, FAA — the audit package, the evidence trail, the tender-ready posture. Compliance as a defensible operational state.</p>
+        <a href="#" class="more">Learn more <span class="arr">→</span></a>
+      </div>
+
+      <div class="service reveal">
+        <div class="head">
+          <div class="icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3 3"/></svg>
+          </div>
+          <div>
+            <div class="tag">04 · Crisis</div>
+            <h3>Crisis Management &amp; Resilience Testing</h3>
+          </div>
+        </div>
+        <p>Tabletop exercises, red-team engagements, and EFB penetration testing. Including the tests regulators ask about and most consultants quietly skip.</p>
+        <a href="#" class="more">Learn more <span class="arr">→</span></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ TECHNOLOGY ============ -->
+<section class="technology" id="technology">
+  <div class="container">
+    <div class="grid">
+      <div class="visual reveal">
+        <img src="andres-dallimonti-kjqTlMHLci4-unsplash.jpg" alt="Aircraft cockpit instrumentation at altitude" />
+        <div class="visual-tag">◉ COCKPIT-CRITICAL</div>
+      </div>
+      <div class="copy reveal">
+        <div class="eyebrow" style="margin-bottom:20px;">Technology</div>
+        <h2>State-grade detection, aviation-tuned.</h2>
+        <p class="lead" style="margin-top:24px;margin-bottom:0;">CyRay's national-infrastructure detection engine — adapted, hardened, and pre-loaded with civil aviation's most adversary-relevant rule set.</p>
+        <ul>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12 l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            <div class="text">Approved by the <span class="em">Israeli government</span> to protect Israeli airlines.</div>
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12 l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            <div class="text">Active protection at <span class="em">Ben-Gurion Airport</span>.</div>
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12 l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            <div class="text"><span class="em">1,000+ civil-aviation detection rules</span> deployed from day one.</div>
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12 l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            <div class="text">Full <span class="em">SIEM/SOC integration</span> with continuous real-time rule updates, fully AI-driven.</div>
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12 l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            <div class="text"><span class="em">IT/OT Fusion</span> adapted to aviation protocols — the only architecture that sees the whole attack path.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Client logos as part of credibility -->
+    <div class="tech-clients reveal" id="clients">
+      <div class="tech-clients-label">Trusted by</div>
+      <div class="tech-clients-row">
+        <div class="logo-ph">Israel MOT</div>
+        <div class="logo-ph">Arkia</div>
+        <div class="logo-ph">Israir</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ CONTACT CTA (single) ============ -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="cta-single reveal">
+      <h2>Let's talk.</h2>
+      <p>Whether you're scoping a risk assessment, evaluating a POC, or exploring a strategic partnership — start a conversation with our team.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-primary">Contact us <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="grid">
+      <div class="brand">
+        <div class="logo">
+          <svg class="logo-mark" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="30" cy="30" r="26" fill="none" stroke="#00e0ff" stroke-width="1.8"/>
+            <circle cx="30" cy="30" r="18" fill="none" stroke="#0892a5" stroke-width="1"/>
+            <line x1="30" y1="2" x2="30" y2="58" stroke="#0892a5" stroke-width="0.8" opacity="0.5"/>
+            <line x1="2" y1="30" x2="58" y2="30" stroke="#0892a5" stroke-width="0.8" opacity="0.5"/>
+            <path d="M30 18 L31 30 L42 33 L42 35 L31 33 L31 40 L33 43 L33 44 L30 43 L27 44 L27 43 L29 40 L29 33 L18 35 L18 33 L29 30 Z" fill="#e6edf3"/>
+          </svg>
+          <span class="logo-text">Aero<span class="mark">Cy</span></span>
+        </div>
+        <p>Operational resilience for civil and general aviation. A protective envelope across IT/OT/IoT, supply chain, regulatory compliance, and crisis management.</p>
+      </div>
+      <div class="col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#about">Concept</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#clients">Clients</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="mailto:info@aerocy.io">info@aerocy.io</a></li>
+          <li><a href="#contact">Strategic Partnerships</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <div>© AeroCy 2026 · All rights reserved · <a href="privacy.html" style="color:var(--muted);">Privacy Policy</a></div>
+      <div>Built on three decades of AVSEC heritage · Powered by CyRay</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ COOKIE BANNER ============ -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieText">
+  <div class="cookie-text" id="cookieText">
+    <strong>We respect your privacy.</strong> This site uses cookies only to remember this notice and for essential functionality — no tracking, no advertising. The hero shows live flight data via the <a href="https://opensky-network.org/" target="_blank" rel="noopener">OpenSky Network</a> API. See our <a href="privacy.html">Privacy Policy</a>.
+  </div>
+  <div class="cookie-actions">
+    <button class="cookie-btn ghost" id="cookieReject">Reject</button>
+    <button class="cookie-btn primary" id="cookieAccept">Accept</button>
+  </div>
+</div>
+
+<!-- ============ JS ============ -->
+<script>
+  // Nav scroll state
+  const nav = document.querySelector('nav.top');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  // Counter animation
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = +el.dataset.target;
+        const dur = 1600;
+        const start = performance.now();
+        const ease = (t) => 1 - Math.pow(1 - t, 3);
+        const tick = (now) => {
+          const t = Math.min(1, (now - start) / dur);
+          el.textContent = Math.round(ease(t) * target);
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        counterIO.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.counter').forEach((el) => counterIO.observe(el));
+
+  // Cursor-tracking glow on service cards
+  document.querySelectorAll('.service').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+
+  // Subtle parallax on image band
+  const bandImg = document.querySelector('.image-band-img');
+  if (bandImg) {
+    window.addEventListener('scroll', () => {
+      const band = bandImg.parentElement;
+      const r = band.getBoundingClientRect();
+      const winH = window.innerHeight;
+      if (r.bottom < 0 || r.top > winH) return;
+      const progress = (winH - r.top) / (winH + r.height);
+      const translate = (progress - 0.5) * 40;
+      bandImg.style.transform = `scale(1.1) translateY(${translate}px)`;
+    }, { passive: true });
+  }
+
+  // Hero particle network — cyber-network feel, lightweight canvas
+  (function particles() {
+    const canvas = document.getElementById('heroParticles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, particles;
+    const COUNT = 60;
+    const MAX_DIST = 140;
+
+    function resize() {
+      w = canvas.width = canvas.offsetWidth * devicePixelRatio;
+      h = canvas.height = canvas.offsetHeight * devicePixelRatio;
+      ctx.scale(1, 1);
+    }
+    function init() {
+      particles = [];
+      for (let i = 0; i < COUNT; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.4 * devicePixelRatio,
+          vy: (Math.random() - 0.5) * 0.4 * devicePixelRatio,
+          r: (Math.random() * 1.2 + 0.6) * devicePixelRatio
+        });
+      }
+    }
+    function step() {
+      ctx.clearRect(0, 0, w, h);
+      // Lines first
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          const max = MAX_DIST * devicePixelRatio;
+          if (d < max) {
+            const a = (1 - d / max) * 0.35;
+            ctx.strokeStyle = `rgba(0, 224, 255, ${a})`;
+            ctx.lineWidth = 0.6 * devicePixelRatio;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      // Dots
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+        ctx.fillStyle = 'rgba(0, 224, 255, 0.7)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      requestAnimationFrame(step);
+    }
+    resize();
+    init();
+    step();
+    window.addEventListener('resize', () => { resize(); init(); });
+  })();
+
+  // Live aircraft count from OpenSky Network
+  // Free public API — no auth required. Rate limit: anonymous = 10 req/min, plenty of headroom at 60s.
+  // Counts aircraft currently broadcasting ADS-B signals (~10–15k typical).
+  const flightWidget = document.getElementById('liveFlights');
+  const countEl = document.getElementById('liveCount');
+  const dotEl = document.getElementById('liveDot');
+
+  // Animate the widget in shortly after page load
+  setTimeout(() => flightWidget && flightWidget.classList.add('in'), 600);
+
+  async function fetchFlights() {
+    if (!countEl) return;
+    countEl.classList.add('updating');
+    try {
+      const r = await fetch('https://opensky-network.org/api/states/all');
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const data = await r.json();
+      const count = (data && data.states) ? data.states.length : 0;
+      // Animate from current value to new value
+      const prev = parseInt(countEl.textContent.replace(/[^0-9]/g, '')) || count;
+      animateCount(countEl, prev, count, 800);
+      dotEl && dotEl.classList.remove('offline');
+    } catch (err) {
+      console.warn('OpenSky fetch failed:', err);
+      if (countEl.textContent === '—') {
+        countEl.textContent = '—';
+        dotEl && dotEl.classList.add('offline');
+      }
+    } finally {
+      countEl.classList.remove('updating');
+    }
+  }
+  function animateCount(el, from, to, dur) {
+    const start = performance.now();
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / dur);
+      const v = Math.round(from + (to - from) * ease(t));
+      el.textContent = v.toLocaleString();
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+  // Initial fetch + refresh every 60s
+  fetchFlights();
+  setInterval(fetchFlights, 60000);
+
+  // Cookie banner — show until user makes a choice, persist with localStorage
+  (function cookieBanner() {
+    const banner = document.getElementById('cookieBanner');
+    if (!banner) return;
+    const KEY = 'aerocy_cookie_choice';
+    const choice = (function() {
+      try { return localStorage.getItem(KEY); } catch (e) { return null; }
+    })();
+    if (!choice) {
+      // Slight delay so it doesn't fight with the hero reveal
+      setTimeout(() => banner.classList.add('show'), 1200);
+    }
+    function dismiss(value) {
+      try { localStorage.setItem(KEY, value); } catch (e) {}
+      banner.classList.remove('show');
+      setTimeout(() => { banner.style.display = 'none'; }, 700);
+    }
+    document.getElementById('cookieAccept').addEventListener('click', () => dismiss('accepted'));
+    document.getElementById('cookieReject').addEventListener('click', () => dismiss('rejected'));
+  })();
+</script>
+
+</body>
+</html>

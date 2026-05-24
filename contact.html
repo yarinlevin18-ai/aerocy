@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — AeroCy</title>
+<meta name="description" content="Contact AeroCy. Request a risk assessment, schedule a POC, or explore a strategic partnership." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090d;
+    --bg-2: #0b1117;
+    --panel: #11161f;
+    --panel-2: #161c27;
+    --border: #1f2937;
+    --border-bright: #2a3548;
+    --text: #e6edf3;
+    --muted: #9ba8b8;
+    --muted-dim: #6b7888;
+    --cyan: #00e0ff;
+    --cyan-dim: #0892a5;
+    --red: #ff3b4a;
+    --green: #00d68f;
+    --font-heading: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse at 80% -10%, rgba(0,224,255,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at -10% 50%, rgba(255,59,74,0.04) 0%, transparent 50%),
+      var(--bg);
+  }
+  a { color: var(--cyan); text-decoration: none; }
+
+  /* Nav */
+  nav.top {
+    padding: 20px 32px;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  nav.top .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav.top .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 22px;
+  }
+  nav.top .logo svg { width: 32px; height: 32px; }
+  nav.top .logo .mark { color: var(--cyan); font-style: italic; }
+  nav.top .back {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  nav.top .back:hover { color: var(--cyan); }
+
+  /* Main */
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 32px 120px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .col-left h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 3.2vw, 42px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .col-left h1 .cyan { color: var(--cyan); }
+  .col-left .lede {
+    color: var(--muted);
+    font-size: 17px;
+    margin-bottom: 40px;
+  }
+
+  .what-we-do {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .what-we-do h3 {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    color: var(--cyan);
+    margin-bottom: 16px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .what-we-do ul {
+    list-style: none;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .what-we-do li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+  }
+  .what-we-do li:last-child { border-bottom: none; }
+  .what-we-do li::before {
+    content: '→';
+    color: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  /* Form card */
+  .form-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  }
+  .form-card h2 {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .form-card .desc {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .field label .req { color: var(--red); margin-left: 2px; }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-2);
+    border: 1px solid var(--border-bright);
+    border-radius: 4px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(0,224,255,0.12);
+  }
+  .field textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: var(--font-body);
+  }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .submit-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .btn-submit {
+    padding: 14px 32px;
+    background: var(--cyan);
+    color: var(--bg);
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-submit:hover:not(:disabled) {
+    box-shadow: 0 0 24px rgba(0,224,255,0.4);
+    transform: translateY(-1px);
+  }
+  .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+  .submit-note {
+    font-size: 12px;
+    color: var(--muted-dim);
+  }
+  .submit-note a { color: var(--muted); text-decoration: underline; }
+
+  /* States */
+  .alert {
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: none;
+  }
+  .alert.show { display: block; }
+  .alert.success {
+    background: rgba(0,214,143,0.08);
+    border: 1px solid rgba(0,214,143,0.3);
+    border-left: 3px solid var(--green);
+    color: var(--text);
+  }
+  .alert.error {
+    background: rgba(255,59,74,0.08);
+    border: 1px solid rgba(255,59,74,0.3);
+    border-left: 3px solid var(--red);
+    color: var(--text);
+  }
+  .alert.warning {
+    background: rgba(255,180,0,0.08);
+    border: 1px solid rgba(255,180,0,0.3);
+    border-left: 3px solid #ffb400;
+    color: var(--text);
+  }
+
+  /* Sent state */
+  .sent {
+    display: none;
+    text-align: center;
+    padding: 32px 0;
+  }
+  .sent.show { display: block; }
+  .sent .check {
+    width: 64px; height: 64px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: rgba(0,214,143,0.12);
+    border: 1.5px solid var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green);
+  }
+  .sent h3 {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  .sent p { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
+  .sent a {
+    color: var(--cyan);
+    font-size: 14px;
+    text-decoration: underline;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; gap: 40px; }
+    .wrap { padding: 48px 20px 80px; }
+    .form-card { padding: 28px 24px; }
+    .field-row { grid-template-columns: 1fr; }
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px;
+    text-align: center;
+    color: var(--muted-dim);
+    font-size: 13px;
+  }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="30" cy="30" r="26" fill="none" stroke="#00e0ff" stroke-width="1.8"/>
+        <circle cx="30" cy="30" r="18" fill="none" stroke="#0892a5" stroke-width="1"/>
+        <line x1="30" y1="2" x2="30" y2="58" stroke="#0892a5" stroke-width="0.8" opacity="0.5"/>
+        <line x1="2" y1="30" x2="58" y2="30" stroke="#0892a5" stroke-width="0.8" opacity="0.5"/>
+        <path d="M30 18 L31 30 L42 33 L42 35 L31 33 L31 40 L33 43 L33 44 L30 43 L27 44 L27 43 L29 40 L29 33 L18 35 L18 33 L29 30 Z" fill="#e6edf3"/>
+      </svg>
+      <span>Aero<span class="mark">Cy</span></span>
+    </a>
+    <a href="index.html" class="back">← Back to home</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="grid">
+
+    <div class="col-left">
+      <h1>Let's talk about your <span class="cyan">resilience</span>.</h1>
+      <p class="lede">Whether you're scoping a risk assessment, evaluating a POC against your live environment, or exploring a strategic partnership — we'll respond within one business day.</p>
+
+      <div class="what-we-do">
+        <h3>What we can help with</h3>
+        <ul>
+          <li>Aviation cyber risk assessment</li>
+          <li>Non-disruptive proof of concept (POC)</li>
+          <li>ICAO / IATA / EASA tender readiness</li>
+          <li>Supply-chain &amp; vendor hardening</li>
+          <li>Crisis management &amp; resilience testing</li>
+          <li>Strategic partnership / Advisory Board</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h2>Send a message</h2>
+      <p class="desc">Required fields are marked with <span style="color:var(--red);">*</span>. We do not share your information.</p>
+
+      <div class="alert warning" id="alertConfig">
+        <strong>CRM not configured yet.</strong> Edit <code style="background:rgba(0,0,0,0.4);padding:1px 6px;border-radius:3px;">crm-config.js</code> with your Supabase URL and anon key. See <code>CRM_SETUP.md</code> for the 5-minute setup.
+      </div>
+      <div class="alert error" id="alertError"></div>
+
+      <form id="contactForm">
+        <div class="field-row">
+          <div class="field">
+            <label for="name">Name <span class="req">*</span></label>
+            <input type="text" id="name" name="name" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" autocomplete="organization" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="email">Email <span class="req">*</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us briefly about your needs — risk assessment, POC, partnership, or anything else."></textarea>
+        </div>
+        <div class="submit-row">
+          <button type="submit" class="btn-submit" id="submitBtn">Send message</button>
+          <span class="submit-note">Or email <a href="mailto:info@aerocy.io">info@aerocy.io</a></span>
+        </div>
+      </form>
+
+      <div class="sent" id="sentState">
+        <div class="check">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13 l4 4 L19 7"/></svg>
+        </div>
+        <h3>Message received.</h3>
+        <p>We'll respond within one business day. Thank you.</p>
+        <a href="index.html">← Back to home</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  © AeroCy 2026 · <a href="index.html">Home</a> · <a href="privacy.html">Privacy</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="crm-config.js"></script>
+<script>
+  const alertConfig = document.getElementById('alertConfig');
+  const alertError  = document.getElementById('alertError');
+  const form        = document.getElementById('contactForm');
+  const submitBtn   = document.getElementById('submitBtn');
+  const sentState   = document.getElementById('sentState');
+
+  // Show config warning if Supabase isn't set up
+  if (!window.AEROCY_CRM || !window.AEROCY_CRM.ready) {
+    alertConfig.classList.add('show');
+    submitBtn.disabled = true;
+  }
+
+  function showError(msg) {
+    alertError.textContent = msg;
+    alertError.classList.add('show');
+    setTimeout(() => alertError.classList.remove('show'), 8000);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    alertError.classList.remove('show');
+
+    if (!window.AEROCY_CRM.ready) {
+      showError('CRM is not configured. Edit crm-config.js first.');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    const data = {
+      name:    document.getElementById('name').value.trim(),
+      company: document.getElementById('company').value.trim() || null,
+      email:   document.getElementById('email').value.trim(),
+      phone:   document.getElementById('phone').value.trim() || null,
+      message: document.getElementById('message').value.trim() || null
+    };
+
+    try {
+      const sb = supabase.createClient(window.AEROCY_CRM.url, window.AEROCY_CRM.anonKey);
+      const { error } = await sb.from('leads').insert([data]);
+      if (error) throw error;
+
+      form.style.display = 'none';
+      sentState.classList.add('show');
+    } catch (err) {
+      console.error(err);
+      showError('Something went wrong sending your message: ' + (err.message || 'unknown error') + '. Try again or email info@aerocy.io directly.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send message';
+    }
+  });
+</script>
+
+</body>
+</html>
