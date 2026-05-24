@@ -450,19 +450,25 @@
     overflow: hidden;
     border: 1px solid var(--red-dim);
     box-shadow: 0 0 60px rgba(255, 59, 74, 0.15);
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(255, 59, 74, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 60%, rgba(0, 224, 255, 0.06) 0%, transparent 60%),
+      #07090d;
   }
-  .threat-visual img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: contrast(1.15) saturate(1.2);
-    transition: transform 8s ease-out;
+  .threat-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
   }
-  .threat-visual:hover img { transform: scale(1.08); }
   .threat-visual::after {
     content: ''; position: absolute; inset: 0;
     background:
-      linear-gradient(135deg, rgba(255,59,74,0.25) 0%, transparent 60%),
-      linear-gradient(180deg, transparent 40%, var(--bg) 100%);
+      linear-gradient(135deg, rgba(255,59,74,0.18) 0%, transparent 50%),
+      linear-gradient(180deg, transparent 60%, rgba(7, 9, 13, 0.6) 100%);
     pointer-events: none;
+    z-index: 2;
   }
   .threat-tag {
     position: absolute;
@@ -1238,7 +1244,7 @@
         <p class="lead">Every airline, airport, and ground operator runs on an interconnected ecosystem of IT, OT, IoT, e-Operations, and supply-chain vendors. A single compromised vendor is a path into the cockpit.</p>
       </div>
       <div class="threat-visual reveal">
-        <img src="clint-patterson-dYEuFB8KQJk-unsplash.webp" alt="A hooded figure illuminated by cyan monitor light — representing the threat actor" />
+        <canvas class="threat-canvas" id="threatCanvas" aria-label="Animated visualization of network attack vectors and defensive scans"></canvas>
         <div class="threat-tag">◉ ACTIVE THREAT VECTOR</div>
         <div class="threat-scanline"></div>
       </div>
@@ -1723,6 +1729,181 @@
     init();
     step();
     window.addEventListener('resize', () => { resize(); init(); });
+  })();
+
+  // Threat-network canvas — animated network with red attack pulses + cyan defensive scans
+  (function threatNetwork() {
+    const canvas = document.getElementById('threatCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    let w, h, nodes = [], edges = [], pulses = [], scanY = -100, scanActive = false;
+
+    function resize() {
+      w = canvas.width = canvas.offsetWidth * dpr;
+      h = canvas.height = canvas.offsetHeight * dpr;
+    }
+    function initNodes() {
+      nodes = [];
+      const count = 22;
+      for (let i = 0; i < count; i++) {
+        nodes.push({
+          x: 30 * dpr + Math.random() * (w - 60 * dpr),
+          y: 30 * dpr + Math.random() * (h - 60 * dpr),
+          r: (1.6 + Math.random() * 1.6) * dpr,
+          alertLevel: 0,
+          baseAlpha: 0.4 + Math.random() * 0.4
+        });
+      }
+    }
+    function initEdges() {
+      edges = [];
+      const maxD = 130 * dpr;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          if (d < maxD && Math.random() < 0.5) edges.push({ a: i, b: j });
+        }
+      }
+    }
+    function spawnAttack() {
+      if (!edges.length) return;
+      const e = edges[Math.floor(Math.random() * edges.length)];
+      // Random direction along edge
+      const reverse = Math.random() < 0.5;
+      pulses.push({
+        from: reverse ? e.b : e.a,
+        to:   reverse ? e.a : e.b,
+        progress: 0,
+        speed: 0.010 + Math.random() * 0.016
+      });
+    }
+    function triggerScan() {
+      scanY = -60 * dpr;
+      scanActive = true;
+    }
+
+    function step() {
+      ctx.clearRect(0, 0, w, h);
+
+      // Subtle grid
+      ctx.strokeStyle = 'rgba(0, 224, 255, 0.035)';
+      ctx.lineWidth = 1;
+      const grid = 42 * dpr;
+      for (let x = 0; x < w; x += grid) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+      }
+      for (let y = 0; y < h; y += grid) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+      }
+
+      // Edges
+      edges.forEach(e => {
+        const a = nodes[e.a], b = nodes[e.b];
+        ctx.strokeStyle = 'rgba(91, 102, 119, 0.28)';
+        ctx.lineWidth = 0.7 * dpr;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      });
+
+      // Scan wave (cyan defensive sweep)
+      if (scanActive) {
+        const grad = ctx.createLinearGradient(0, scanY - 40 * dpr, 0, scanY + 40 * dpr);
+        grad.addColorStop(0,   'rgba(0, 224, 255, 0)');
+        grad.addColorStop(0.5, 'rgba(0, 224, 255, 0.45)');
+        grad.addColorStop(1,   'rgba(0, 224, 255, 0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, scanY - 40 * dpr, w, 80 * dpr);
+        // Bright leading edge
+        ctx.fillStyle = 'rgba(0, 224, 255, 0.7)';
+        ctx.fillRect(0, scanY, w, 1.2 * dpr);
+        scanY += 3 * dpr;
+        if (scanY > h + 60 * dpr) scanActive = false;
+      }
+
+      // Pulses (attacks traveling along edges)
+      for (let i = pulses.length - 1; i >= 0; i--) {
+        const p = pulses[i];
+        p.progress += p.speed;
+        if (p.progress >= 1) {
+          nodes[p.to].alertLevel = 1;
+          pulses.splice(i, 1);
+          continue;
+        }
+        const a = nodes[p.from], b = nodes[p.to];
+        const x = a.x + (b.x - a.x) * p.progress;
+        const y = a.y + (b.y - a.y) * p.progress;
+
+        // Trailing line
+        const trailLen = 0.18;
+        const tStart = Math.max(0, p.progress - trailLen);
+        const tx = a.x + (b.x - a.x) * tStart;
+        const ty = a.y + (b.y - a.y) * tStart;
+        const lineGrad = ctx.createLinearGradient(tx, ty, x, y);
+        lineGrad.addColorStop(0, 'rgba(255, 59, 74, 0)');
+        lineGrad.addColorStop(1, 'rgba(255, 59, 74, 0.85)');
+        ctx.strokeStyle = lineGrad;
+        ctx.lineWidth = 1.5 * dpr;
+        ctx.beginPath();
+        ctx.moveTo(tx, ty);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+
+        // Glow halo
+        const glowR = 9 * dpr;
+        const glow = ctx.createRadialGradient(x, y, 0, x, y, glowR);
+        glow.addColorStop(0, 'rgba(255, 59, 74, 0.9)');
+        glow.addColorStop(1, 'rgba(255, 59, 74, 0)');
+        ctx.fillStyle = glow;
+        ctx.fillRect(x - glowR, y - glowR, glowR * 2, glowR * 2);
+
+        // Dot
+        ctx.fillStyle = '#ff3b4a';
+        ctx.beginPath();
+        ctx.arc(x, y, 2.2 * dpr, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Nodes
+      nodes.forEach(n => {
+        if (n.alertLevel > 0) {
+          const halo = 28 * dpr * n.alertLevel;
+          const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, halo);
+          g.addColorStop(0, `rgba(255, 59, 74, ${0.55 * n.alertLevel})`);
+          g.addColorStop(1, 'rgba(255, 59, 74, 0)');
+          ctx.fillStyle = g;
+          ctx.fillRect(n.x - halo, n.y - halo, halo * 2, halo * 2);
+          ctx.fillStyle = `rgba(255, 90, 100, 1)`;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, (n.r + 1) * dpr / dpr, 0, Math.PI * 2);
+          ctx.fill();
+          n.alertLevel -= 0.014;
+        } else {
+          ctx.fillStyle = `rgba(0, 224, 255, ${n.baseAlpha})`;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+
+      requestAnimationFrame(step);
+    }
+
+    resize();
+    initNodes();
+    initEdges();
+    step();
+    // Attack every 600-1400ms
+    setInterval(() => spawnAttack(), 900);
+    // Defensive scan every 7s
+    setInterval(triggerScan, 7000);
+    // First scan after 2s
+    setTimeout(triggerScan, 2000);
+    window.addEventListener('resize', () => { resize(); initNodes(); initEdges(); });
   })();
 
   // Live aircraft count from OpenSky Network
