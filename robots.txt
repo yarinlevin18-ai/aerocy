@@ -19,4 +19,4 @@ Disallow: /
 User-agent: PetalBot
 Disallow: /
 
-Sitemap: https://aerocy.io/sitemap.xml
+Sitemap: https://aerocy-yarinlevin18-6288s-projects.vercel.app/sitemap.xml
