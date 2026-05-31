@@ -288,6 +288,22 @@
     .form-card { padding: 28px 24px; }
     .field-row { grid-template-columns: 1fr; }
   }
+  @media (max-width: 600px) {
+    nav.top { padding: 14px 16px; }
+    nav.top .logo { font-size: 18px; gap: 10px; }
+    nav.top .logo svg { width: 28px; height: 28px; }
+    nav.top .back { font-size: 12px; }
+    .wrap { padding: 32px 16px 56px; }
+    .col-left h1 { font-size: clamp(26px, 7.5vw, 36px); }
+    .col-left .lede { font-size: 15px; margin-bottom: 28px; }
+    .what-we-do li { font-size: 14px; padding: 8px 0; }
+    .form-card { padding: 24px 18px; border-radius: 6px; }
+    .form-card h2 { font-size: 20px; }
+    .field input, .field textarea, .field select { padding: 12px 14px; font-size: 16px; } /* 16px prevents iOS zoom on focus */
+    .submit-row { flex-direction: column; align-items: stretch; gap: 12px; }
+    .btn-submit { width: 100%; justify-content: center; padding: 14px 18px; }
+    .submit-note { text-align: center; font-size: 11px; }
+  }
 
   footer {
     border-top: 1px solid var(--border);
